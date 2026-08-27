@@ -5,6 +5,14 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
+  {
+    rules: {
+      // O'zbek matnlari tabiiy ravishda ' belgisidan foydalanadi
+      "react/no-unescaped-entities": "off",
+      // Saqlangan mavzuni effekt ichida o'qish — maqsadli holat
+      "react-hooks/set-state-in-effect": "off",
+    },
+  },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
