@@ -1,3 +1,4 @@
+import { describe, it, expect } from "vitest";
 import { LANGS, translations } from "@/lib/i18n/translations";
 
 describe("i18n translations", () => {
