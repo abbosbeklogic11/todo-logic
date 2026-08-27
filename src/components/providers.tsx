@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import "@/sentry.client.config";
 import { ThemeProvider } from "@/components/theme-provider";
 import { LanguageProvider } from "@/components/language-provider";
 import { TRPCReactProvider } from "@/trpc/react";
