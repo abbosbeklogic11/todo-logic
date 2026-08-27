@@ -11,7 +11,73 @@ import {
 } from "@/lib/schemas/task";
 import { recalculateGoalProgress } from "@/server/goal-progress";
 
+const subtaskRouter = router({
+  create: protectedProcedure
+    .input(z.object({ taskId: z.string(), title: z.string().min(1).max(200) }))
+    .mutation(async ({ ctx, input }) => {
+      const count = await db.subtask.count({
+        where: { taskId: input.taskId, task: { userId: ctx.session.user.id } },
+      });
+      return db.subtask.create({
+        data: { taskId: input.taskId, title: input.title, position: count },
+      });
+    }),
+
+  toggle: protectedProcedure
+    .input(z.object({ id: z.string(), done: z.boolean() }))
+    .mutation(async ({ ctx, input }) => {
+      const sub = await db.subtask.findFirst({
+        where: { id: input.id, task: { userId: ctx.session.user.id } },
+      });
+      if (!sub) throw new TRPCError({ code: "NOT_FOUND" });
+      return db.subtask.update({
+        where: { id: input.id },
+        data: { isCompleted: input.done },
+      });
+    }),
+
+  update: protectedProcedure
+    .input(z.object({ id: z.string(), title: z.string().min(1).max(200) }))
+    .mutation(async ({ ctx, input }) => {
+      const sub = await db.subtask.findFirst({
+        where: { id: input.id, task: { userId: ctx.session.user.id } },
+      });
+      if (!sub) throw new TRPCError({ code: "NOT_FOUND" });
+      return db.subtask.update({
+        where: { id: input.id },
+        data: { title: input.title },
+      });
+    }),
+
+  delete: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const sub = await db.subtask.findFirst({
+        where: { id: input.id, task: { userId: ctx.session.user.id } },
+      });
+      if (!sub) throw new TRPCError({ code: "NOT_FOUND" });
+      await db.subtask.delete({ where: { id: input.id } });
+      return { deleted: true };
+    }),
+
+  reorder: protectedProcedure
+    .input(z.object({ taskId: z.string(), ids: z.array(z.string()).min(1) }))
+    .mutation(async ({ ctx, input }) => {
+      await Promise.all(
+        input.ids.map((id, index) =>
+          db.subtask.updateMany({
+            where: { id, task: { userId: ctx.session.user.id } },
+            data: { position: index },
+          }),
+        ),
+      );
+      return { ok: true };
+    }),
+});
+
 export const taskRouter = router({
+  subtasks: subtaskRouter,
+
   list: protectedProcedure
     .input(listTaskQuerySchema)
     .query(async ({ ctx, input }) => {

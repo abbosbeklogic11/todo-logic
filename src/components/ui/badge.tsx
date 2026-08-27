@@ -5,9 +5,10 @@ import { cn } from "@/lib/utils";
 const badgeVariants = cva(
   "inline-flex items-center gap-1 rounded-sm px-2 py-0.5 text-xs font-medium transition-colors",
   {
-    variants: {
-      variant: {
-        default: "bg-surface-hover text-text-secondary",
+      variants: {
+        variant: {
+          default: "bg-surface-hover text-text-secondary",
+          secondary: "bg-background text-text-secondary border border-border",
         primary: "bg-primary/10 text-primary",
         success: "bg-success/10 text-success",
         warning: "bg-warning/10 text-warning",

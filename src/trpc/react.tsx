@@ -5,8 +5,14 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink, loggerLink } from "@trpc/client";
 import { createTRPCReact } from "@trpc/react-query";
 import type { AppRouter } from "@/server/trpc/root";
+import type { inferRouterOutputs, inferRouterInputs } from "@trpc/server";
 
 export const trpc = createTRPCReact<AppRouter>();
+
+export type RouterOutputs = inferRouterOutputs<AppRouter>;
+export type RouterInputs = inferRouterInputs<AppRouter>;
+
+export type TaskItem = RouterOutputs["task"]["list"]["tasks"][number];
 
 function getBaseUrl() {
   if (typeof window !== "undefined") return "";
