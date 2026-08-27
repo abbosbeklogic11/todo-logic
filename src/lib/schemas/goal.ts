@@ -6,6 +6,7 @@ export const goalStatusSchema = z.enum([
   "COMPLETED",
   "ARCHIVED",
 ]);
+export type GoalStatus = z.infer<typeof goalStatusSchema>;
 
 export const createGoalSchema = z.object({
   title: z.string().min(1).max(200),
@@ -18,7 +19,7 @@ export type CreateGoalInput = z.infer<typeof createGoalSchema>;
 export const updateGoalSchema = createGoalSchema
   .omit({ milestones: true })
   .partial()
-  .extend({ id: z.string() });
+  .extend({ id: z.string(), status: goalStatusSchema.optional() });
 export type UpdateGoalInput = z.infer<typeof updateGoalSchema>;
 
 export const addMilestoneSchema = z.object({

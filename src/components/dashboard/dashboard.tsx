@@ -99,13 +99,21 @@ export function Dashboard({ name }: { name: string }) {
         <section>
           <div className="mb-3 flex items-center justify-between">
             <h2 className="h4">Maqsadlar</h2>
-            <GoalCreateDialog
+            <div className="flex items-center gap-1">
+              <Link
+                href="/goals"
+                className="caption inline-flex items-center gap-1 hover:text-text"
+              >
+                Barchasi <ArrowRight className="size-4" />
+              </Link>
+              <GoalCreateDialog
               trigger={
                 <Button size="sm" variant="ghost">
                   <Plus className="size-4" /> Yangi
                 </Button>
               }
-            />
+              />
+          </div>
           </div>
           {goals.isLoading ? (
             <div className="space-y-3">
