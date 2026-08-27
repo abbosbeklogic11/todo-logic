@@ -99,6 +99,24 @@ export function isToday(d: Date): boolean {
   return isSameDay(d, new Date());
 }
 
+/** Human-friendly relative label for a due date (Uzbek). */
+export function dueLabel(value: string | Date | null | undefined): string {
+  if (!value) return "";
+  const d = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(d.getTime())) return "";
+  const now = new Date();
+  const startToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const diff = Math.round(
+    (new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime() -
+      startToday.getTime()) /
+      86400000,
+  );
+  if (diff < 0) return "Kechikkan";
+  if (diff === 0) return "Bugun";
+  if (diff === 1) return "Ertaga";
+  return formatDueDate(d);
+}
+
 export function formatDueDate(value: string | Date | null | undefined): string {
   const d = coerceDate(value);
   if (!d) return "";

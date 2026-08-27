@@ -3,7 +3,15 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Plus, Target, Flame, ListTodo, ArrowRight } from "lucide-react";
+import {
+  Plus,
+  Target,
+  Flame,
+  ListTodo,
+  ArrowRight,
+  CheckCircle2,
+  CalendarClock,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -12,6 +20,7 @@ import { ProgressRing } from "@/components/ui/progress-ring";
 import { EmptyState } from "@/components/ui/empty-state";
 import { GoalCreateDialog } from "@/components/goals/goal-create-dialog";
 import { trpc } from "@/trpc/react";
+import { isOverdue, dueLabel } from "@/lib/task-utils";
 
 const priorityVariant: Record<string, "default" | "warning" | "error" | "success"> = {
   LOW: "success",
@@ -20,12 +29,20 @@ const priorityVariant: Record<string, "default" | "warning" | "error" | "success
   URGENT: "error",
 };
 
+function isSameDay(a: Date, b: Date) {
+  return (
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate()
+  );
+}
+
 export function Dashboard({ name }: { name: string }) {
   const [taskTitle, setTaskTitle] = useState("");
 
   const goals = trpc.goal.list.useQuery({ limit: 12, status: "ACTIVE" });
   const habits = trpc.habit.list.useQuery();
-  const tasks = trpc.task.list.useQuery({ limit: 6 });
+  const tasks = trpc.task.list.useQuery({ limit: 50 });
   const utils = trpc.useUtils();
 
   const createTask = trpc.task.create.useMutation({
@@ -44,6 +61,26 @@ export function Dashboard({ name }: { name: string }) {
 
   const firstName = name?.split(" ")[0] ?? "Foydalanuvchi";
 
+  const allTasks = tasks.data?.tasks ?? [];
+  const today = new Date();
+  const activeTasks = allTasks.filter(
+    (t) => t.status !== "COMPLETED" && t.status !== "ARCHIVED",
+  ).length;
+  const completedToday = allTasks.filter(
+    (t) =>
+      t.status === "COMPLETED" &&
+      t.completedAt &&
+      isSameDay(new Date(t.completedAt), today),
+  ).length;
+  const upcoming = allTasks
+    .filter((t) => t.status !== "COMPLETED" && t.dueAt)
+    .sort(
+      (a, b) =>
+        new Date(a.dueAt as string).getTime() -
+        new Date(b.dueAt as string).getTime(),
+    )
+    .slice(0, 6);
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
       <header className="mb-8">
@@ -58,10 +95,32 @@ export function Dashboard({ name }: { name: string }) {
       </header>
 
       {/* Stats */}
-      <div className="mb-8 grid gap-4 sm:grid-cols-3">
+      <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardContent className="flex items-center gap-4 p-5">
             <span className="flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary">
+              <ListTodo className="size-5" />
+            </span>
+            <div>
+              <p className="caption">Faol vazifalar</p>
+              <p className="stat">{activeTasks}</p>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="flex items-center gap-4 p-5">
+            <span className="flex size-11 items-center justify-center rounded-lg bg-success/10 text-success">
+              <CheckCircle2 className="size-5" />
+            </span>
+            <div>
+              <p className="caption">Bugun bajarilgan</p>
+              <p className="stat">{completedToday}</p>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="flex items-center gap-4 p-5">
+            <span className="flex size-11 items-center justify-center rounded-lg bg-secondary/10 text-secondary">
               <Target className="size-5" />
             </span>
             <div>
@@ -72,23 +131,12 @@ export function Dashboard({ name }: { name: string }) {
         </Card>
         <Card>
           <CardContent className="flex items-center gap-4 p-5">
-            <span className="flex size-11 items-center justify-center rounded-lg bg-secondary/10 text-secondary">
+            <span className="flex size-11 items-center justify-center rounded-lg bg-accent/10 text-accent">
               <Flame className="size-5" />
             </span>
             <div>
               <p className="caption">Odatlar</p>
               <p className="stat">{habits.data?.length ?? 0}</p>
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="flex items-center gap-4 p-5">
-            <span className="flex size-11 items-center justify-center rounded-lg bg-accent/10 text-accent">
-              <ListTodo className="size-5" />
-            </span>
-            <div>
-              <p className="caption">Vazifalar</p>
-              <p className="stat">{tasks.data?.tasks.length ?? 0}</p>
             </div>
           </CardContent>
         </Card>
@@ -107,13 +155,13 @@ export function Dashboard({ name }: { name: string }) {
                 Barchasi <ArrowRight className="size-4" />
               </Link>
               <GoalCreateDialog
-              trigger={
-                <Button size="sm" variant="ghost">
-                  <Plus className="size-4" /> Yangi
-                </Button>
-              }
+                trigger={
+                  <Button size="sm" variant="ghost">
+                    <Plus className="size-4" /> Yangi
+                  </Button>
+                }
               />
-          </div>
+            </div>
           </div>
           {goals.isLoading ? (
             <div className="space-y-3">
@@ -129,9 +177,7 @@ export function Dashboard({ name }: { name: string }) {
                     <ProgressRing value={g.progress} size={56} strokeWidth={6} />
                     <div className="min-w-0 flex-1">
                       <p className="truncate font-medium">{g.title}</p>
-                      <p className="caption">
-                        {g._count.tasks} ta vazifa
-                      </p>
+                      <p className="caption">{g._count.tasks} ta vazifa</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -177,9 +223,9 @@ export function Dashboard({ name }: { name: string }) {
                 <div key={i} className="h-12 animate-pulse rounded-md bg-surface-hover" />
               ))}
             </div>
-          ) : tasks.data?.tasks.length ? (
+          ) : allTasks.length ? (
             <motion.div className="space-y-2">
-              {tasks.data.tasks.map((t) => (
+              {allTasks.slice(0, 5).map((t) => (
                 <Card key={t.id}>
                   <CardContent className="flex items-center gap-3 p-3">
                     <div className="size-4 rounded-md border-2 border-border" />
@@ -202,6 +248,46 @@ export function Dashboard({ name }: { name: string }) {
           )}
         </section>
       </div>
+
+      {/* Upcoming deadlines */}
+      {upcoming.length > 0 && (
+        <section className="mt-8">
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="h4 inline-flex items-center gap-2">
+              <CalendarClock className="size-5" /> Yaqinlashayotgan muddatlar
+            </h2>
+            <Button size="sm" variant="ghost" asChild>
+              <Link href="/tasks">
+                Barchasi <ArrowRight className="size-4" />
+              </Link>
+            </Button>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {upcoming.map((t) => {
+              const overdue = isOverdue(t.dueAt);
+              return (
+                <Card key={t.id}>
+                  <CardContent className="flex items-center gap-3 p-4">
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate font-medium">{t.title}</p>
+                      <p
+                        className={
+                          "caption " + (overdue ? "text-error" : "text-text-muted")
+                        }
+                      >
+                        {dueLabel(t.dueAt)}
+                      </p>
+                    </div>
+                    <Badge variant={priorityVariant[t.priority] ?? "default"}>
+                      {t.priority}
+                    </Badge>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

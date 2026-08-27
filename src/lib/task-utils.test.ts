@@ -5,6 +5,7 @@ import {
   priorityVariant,
   isOverdue,
   BOARD_COLUMNS,
+  dueLabel,
 } from "@/lib/task-utils";
 
 describe("task-utils", () => {
@@ -44,5 +45,25 @@ describe("task-utils", () => {
 
   it("BOARD_COLUMNS excludes ARCHIVED", () => {
     expect(BOARD_COLUMNS).toEqual(["TODO", "IN_PROGRESS", "COMPLETED"]);
+  });
+
+  it("dueLabel returns relative Uzbek labels", () => {
+    const now = new Date();
+    const startToday = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+    );
+    const today = new Date(startToday);
+    const tomorrow = new Date(startToday.getTime() + 86400000);
+    const yesterday = new Date(startToday.getTime() - 86400000);
+    const nextWeek = new Date(startToday.getTime() + 7 * 86400000);
+    expect(dueLabel(today)).toBe("Bugun");
+    expect(dueLabel(tomorrow)).toBe("Ertaga");
+    expect(dueLabel(yesterday)).toBe("Kechikkan");
+    expect(dueLabel(nextWeek)).not.toBe("Bugun");
+    expect(dueLabel(nextWeek)).not.toBe("Ertaga");
+    expect(dueLabel(nextWeek)).not.toBe("Kechikkan");
+    expect(dueLabel(null)).toBe("");
   });
 });
