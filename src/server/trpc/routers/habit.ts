@@ -5,6 +5,7 @@ import {
   createHabitSchema,
   toggleHabitSchema,
   deleteHabitSchema,
+  updateHabitSchema,
 } from "@/lib/schemas/habit";
 
 function startOfDay(d: Date) {
@@ -32,6 +33,17 @@ export const habitRouter = router({
       return db.habit.create({
         data: { ...input, userId: ctx.session.user.id },
       });
+    }),
+
+  update: protectedProcedure
+    .input(updateHabitSchema)
+    .mutation(async ({ ctx, input }) => {
+      const { id, ...data } = input;
+      const habit = await db.habit.findFirst({
+        where: { id, userId: ctx.session.user.id },
+      });
+      if (!habit) throw new TRPCError({ code: "NOT_FOUND" });
+      return db.habit.update({ where: { id }, data });
     }),
 
   toggleToday: protectedProcedure

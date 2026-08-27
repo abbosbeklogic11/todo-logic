@@ -14,6 +14,7 @@ export type RouterInputs = inferRouterInputs<AppRouter>;
 
 export type TaskItem = RouterOutputs["task"]["list"]["tasks"][number];
 export type GoalItem = RouterOutputs["goal"]["list"]["goals"][number];
+export type HabitItem = RouterOutputs["habit"]["list"][number];
 
 function getBaseUrl() {
   if (typeof window !== "undefined") return "";
