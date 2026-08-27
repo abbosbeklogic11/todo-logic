@@ -9,4 +9,30 @@ test.describe("Accessibility", () => {
       .analyze();
     expect(results.violations).toEqual([]);
   });
+
+  test("login page has no critical axe violations", async ({ page }) => {
+    await page.goto("/login");
+    const results = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa"])
+      .analyze();
+    expect(results.violations).toEqual([]);
+  });
+
+  test("register page has no critical axe violations", async ({ page }) => {
+    await page.goto("/register");
+    const results = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa"])
+      .analyze();
+    expect(results.violations).toEqual([]);
+  });
+
+  test("forgot-password page has no critical axe violations", async ({
+    page,
+  }) => {
+    await page.goto("/forgot-password");
+    const results = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa"])
+      .analyze();
+    expect(results.violations).toEqual([]);
+  });
 });
