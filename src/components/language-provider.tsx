@@ -8,7 +8,7 @@ const LANG_KEY = "todo-logic-lang";
 interface LanguageContextValue {
   lang: Lang;
   setLang: (lang: Lang) => void;
-  t: (key: string) => string;
+  t: (key: string, params?: Record<string, string | number>) => string;
 }
 
 const LanguageContext = React.createContext<LanguageContextValue | null>(null);
@@ -29,7 +29,15 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const t = React.useCallback(
-    (key: string) => translations[lang]?.[key] ?? translations.uz[key] ?? key,
+    (key: string, params?: Record<string, string | number>) => {
+      let str = translations[lang]?.[key] ?? translations.uz[key] ?? key;
+      if (params) {
+        for (const [k, v] of Object.entries(params)) {
+          str = str.replaceAll(`{${k}}`, String(v));
+        }
+      }
+      return str;
+    },
     [lang],
   );
 

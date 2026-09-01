@@ -10,8 +10,10 @@ import { GoalCard } from "./goal-card";
 import { GoalDialog } from "./goal-dialog";
 import { GOAL_STATUS_LABELS } from "@/lib/goal-utils";
 import { goalStatusSchema, type GoalStatus } from "@/lib/schemas/goal";
+import { useLanguage } from "@/components/language-provider";
 
 export function GoalCenter() {
+  const { t } = useLanguage();
   const [status, setStatus] = useState<GoalStatus | "ALL">("ALL");
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<GoalItem | null>(null);
@@ -38,12 +40,12 @@ export function GoalCenter() {
     <div className="space-y-5">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Maqsadlar</h1>
-          <p className="text-sm text-text-muted">{filtered.length} ta ko'rsatilmoqda</p>
+          <h1 className="text-2xl font-bold">{t("goals.title")}</h1>
+          <p className="text-sm text-text-muted">{t("goals.showing", { count: filtered.length })}</p>
         </div>
         <Button onClick={openCreate}>
           <Plus className="h-4 w-4" />
-          Yangi maqsad
+          {t("goals.create")}
         </Button>
       </div>
 
@@ -51,10 +53,10 @@ export function GoalCenter() {
         <Select
           value={status}
           onChange={(e) => setStatus(e.target.value as GoalStatus | "ALL")}
-          aria-label="Holat bo'yicha filtr"
+          aria-label={t("goals.filter.aria")}
           className="sm:w-52"
         >
-          <option value="ALL">Barcha holatlar</option>
+          <option value="ALL">{t("goals.filter.all")}</option>
           {goalStatusSchema.options.map((s) => (
             <option key={s} value={s}>
               {GOAL_STATUS_LABELS[s]}
@@ -64,18 +66,18 @@ export function GoalCenter() {
       </div>
 
       {isLoading ? (
-        <p className="text-sm text-text-muted">Yuklanmoqda...</p>
+        <p className="text-sm text-text-muted">{t("common.loading")}</p>
       ) : filtered.length === 0 ? (
         <EmptyState
           image="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80&auto=format&fit=crop"
           imageAlt="Maqsadlar bo'sh"
           icon={<Target />}
-          title="Hali maqsad yo'q"
-          description="Katta narsadan boshlang — maqsad yarating va uni bosqichlarga ajrating."
+          title={t("goals.empty.title")}
+          description={t("goals.empty.description")}
           action={
             <Button onClick={openCreate}>
               <Plus className="h-4 w-4" />
-              Birinchi maqsad
+              {t("goals.empty.action")}
             </Button>
           }
         />

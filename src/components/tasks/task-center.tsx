@@ -18,16 +18,17 @@ import {
   type TaskStatus,
 } from "@/lib/schemas/task";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/components/language-provider";
 
 type View = "list" | "board" | "calendar";
 
-const VIEWS: { id: View; label: string; icon: typeof List }[] = [
-  { id: "list", label: "Ro'yxat", icon: List },
-  { id: "board", label: "Board", icon: LayoutGrid },
-  { id: "calendar", label: "Kalendar", icon: CalendarDays },
-];
-
 export function TaskCenter() {
+  const { t } = useLanguage();
+  const VIEWS: { id: View; label: string; icon: typeof List }[] = [
+    { id: "list", label: t("tasks.views.list"), icon: List },
+    { id: "board", label: t("tasks.views.board"), icon: LayoutGrid },
+    { id: "calendar", label: t("tasks.views.calendar"), icon: CalendarDays },
+  ];
   const [view, setView] = useState<View>("list");
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState<TaskStatus | "ALL">("ALL");
@@ -61,10 +62,8 @@ export function TaskCenter() {
     <div className="space-y-4 sm:space-y-5">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="min-w-0">
-          <h1 className="text-xl font-bold sm:text-2xl">Vazifalar</h1>
-          <p className="text-sm text-text-muted">
-            {filtered.length} ta ko'rsatilmoqda
-          </p>
+          <h1 className="text-xl font-bold sm:text-2xl">{t("tasks.title")}</h1>
+          <p className="text-sm text-text-muted">{t("tasks.showing", { count: filtered.length })}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <div className="flex rounded-lg border border-border bg-surface p-1">
@@ -78,9 +77,7 @@ export function TaskCenter() {
                   aria-pressed={view === v.id}
                   className={cn(
                     "inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm font-medium transition-colors sm:px-3",
-                    view === v.id
-                      ? "bg-primary text-primary-foreground"
-                      : "text-text-muted hover:text-text",
+                    view === v.id ? "bg-primary text-primary-foreground" : "text-text-muted hover:text-text",
                   )}
                 >
                   <Icon className="h-4 w-4" />
@@ -91,8 +88,8 @@ export function TaskCenter() {
           </div>
           <Button onClick={openCreate} className="shrink-0">
             <Plus className="h-4 w-4" />
-            <span className="hidden sm:inline">Yangi vazifa</span>
-            <span className="sm:hidden">Yangi</span>
+            <span className="hidden sm:inline">{t("tasks.create")}</span>
+            <span className="sm:hidden">{t("tasks.create.new")}</span>
           </Button>
         </div>
       </div>
@@ -103,18 +100,18 @@ export function TaskCenter() {
           <Input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Vazifalar qidirish"
+            placeholder={t("tasks.search.placeholder")}
             className="pl-9"
-            aria-label="Qidirish"
+            aria-label={t("tasks.search.aria")}
           />
         </div>
         <Select
           value={status}
           onChange={(e) => setStatus(e.target.value as TaskStatus | "ALL")}
-          aria-label="Holat bo'yicha filtr"
+          aria-label={t("tasks.filter.status.aria")}
           className="sm:w-44"
         >
-          <option value="ALL">Barcha holatlar</option>
+          <option value="ALL">{t("tasks.filter.status.all")}</option>
           {taskStatusSchema.options.map((s) => (
             <option key={s} value={s}>
               {STATUS_LABELS[s]}
@@ -124,10 +121,10 @@ export function TaskCenter() {
         <Select
           value={priority}
           onChange={(e) => setPriority(e.target.value as TaskPriority | "ALL")}
-          aria-label="Muhimlik bo'yicha filtr"
+          aria-label={t("tasks.filter.priority.aria")}
           className="sm:w-44"
         >
-          <option value="ALL">Barcha muhimlik</option>
+          <option value="ALL">{t("tasks.filter.priority.all")}</option>
           {taskPrioritySchema.options.map((p) => (
             <option key={p} value={p}>
               {PRIORITY_LABELS[p]}
@@ -137,7 +134,7 @@ export function TaskCenter() {
       </div>
 
       {isLoading ? (
-        <p className="text-sm text-text-muted">Yuklanmoqda...</p>
+        <p className="text-sm text-text-muted">{t("common.loading")}</p>
       ) : view === "list" ? (
         <TaskList tasks={filtered} onEdit={openEdit} />
       ) : view === "board" ? (

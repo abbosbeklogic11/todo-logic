@@ -12,6 +12,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { MilestoneList } from "./milestone-list";
 import { GOAL_STATUS_LABELS } from "@/lib/goal-utils";
 import { goalStatusSchema, type GoalStatus } from "@/lib/schemas/goal";
+import { useLanguage } from "@/components/language-provider";
 
 function toDateInput(value: string | Date | null | undefined): string {
   if (!value) return "";
@@ -29,6 +30,7 @@ export function GoalDialog({
   onOpenChange: (open: boolean) => void;
   goal: GoalItem | null;
 }) {
+  const { t } = useLanguage();
   const utils = trpc.useUtils();
   const isEdit = !!goal;
 
@@ -91,7 +93,7 @@ export function GoalDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>{isEdit ? "Maqsadni tahrirlash" : "Yangi maqsad"}</DialogTitle>
+          <DialogTitle>{isEdit ? t("goalDialog.title.edit") : t("goalDialog.title.create")}</DialogTitle>
         </DialogHeader>
         <form onSubmit={onSubmit} className="space-y-4">
           <div className="space-y-1.5">
@@ -100,7 +102,7 @@ export function GoalDialog({
               id="goal-title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="Maqsad nomini kiriting"
+              placeholder={t("goalDialog.title.placeholder")}
               required
             />
           </div>
@@ -111,7 +113,7 @@ export function GoalDialog({
               id="goal-desc"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Ixtiyoriy tavsif"
+              placeholder={t("goalDialog.description.placeholder")}
             />
           </div>
 
@@ -170,7 +172,7 @@ export function GoalDialog({
                 ))}
               </ul>
               <Input
-                placeholder="Qo'shish uchun kiriting va Enter bosing"
+                placeholder={t("tasks.create.quick")}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     e.preventDefault();
@@ -190,16 +192,12 @@ export function GoalDialog({
           )}
 
           <div className="flex justify-end gap-2 pt-2">
-            <Button
-              type="button"
-              variant="ghost"
-              onClick={() => onOpenChange(false)}
-            >
-              Bekor qilish
+            <Button type="button" variant="ghost" onClick={() => onOpenChange(false)}>
+              {t("common.cancel")}
             </Button>
             <Button type="submit" disabled={pending || !title.trim()}>
               {pending && <Loader2 className="h-4 w-4 animate-spin" />}
-              {isEdit ? "Saqlash" : "Yaratish"}
+              {isEdit ? t("common.save") : t("common.create")}
             </Button>
           </div>
         </form>

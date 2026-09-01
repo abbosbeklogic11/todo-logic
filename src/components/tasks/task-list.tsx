@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { TaskRow } from "./task-row";
+import { useLanguage } from "@/components/language-provider";
 
 export function TaskList({
   tasks,
@@ -15,6 +16,7 @@ export function TaskList({
   tasks: TaskItem[];
   onEdit: (task: TaskItem) => void;
 }) {
+  const { t } = useLanguage();
   const utils = trpc.useUtils();
   const [quick, setQuick] = useState("");
 
@@ -37,8 +39,8 @@ export function TaskList({
         image="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=600&q=80&auto=format&fit=crop"
         imageAlt="Bo'sh vazifalar ro'yxati"
         icon={<Plus className="size-5" />}
-        title="Vazifalar yo'q"
-        description="Yuqoridagi qutiga sarlavha yozing yoki 'Yangi vazifa' tugmasini bosing."
+        title={t("tasks.empty.title")}
+        description={t("tasks.empty.description")}
       />
     );
   }
@@ -55,12 +57,12 @@ export function TaskList({
               addQuick();
             }
           }}
-          placeholder="Tez qo'shish: sarlavhani kiriting va Enter bosing"
-          aria-label="Tez qo'shish"
+          placeholder={t("tasks.create.quick")}
+          aria-label={t("tasks.create.quick.aria")}
         />
         <Button onClick={addQuick} disabled={create.isPending || !quick.trim()}>
           <Plus className="h-4 w-4" />
-          Qo'shish
+          {t("tasks.create.quick.add")}
         </Button>
       </div>
       <div className="space-y-2">

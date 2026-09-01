@@ -12,6 +12,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { SubtaskEditor } from "./subtask-editor";
 import { PRIORITY_LABELS } from "@/lib/task-utils";
 import { taskPrioritySchema, type TaskPriority } from "@/lib/schemas/task";
+import { useLanguage } from "@/components/language-provider";
 
 function toDateInput(value: string | Date | null | undefined): string {
   if (!value) return "";
@@ -29,6 +30,7 @@ export function TaskDialog({
   onOpenChange: (open: boolean) => void;
   task: TaskItem | null;
 }) {
+  const { t } = useLanguage();
   const utils = trpc.useUtils();
   const isEdit = !!task;
 
@@ -114,7 +116,7 @@ export function TaskDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>{isEdit ? "Vazifani tahrirlash" : "Yangi vazifa"}</DialogTitle>
+          <DialogTitle>{isEdit ? t("taskDialog.title.edit") : t("taskDialog.title.create")}</DialogTitle>
         </DialogHeader>
         <form onSubmit={onSubmit} className="space-y-4">
           <div className="space-y-1.5">
@@ -123,7 +125,7 @@ export function TaskDialog({
               id="task-title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="Vazifa nomini kiriting"
+              placeholder={t("taskDialog.title.placeholder")}
               required
             />
           </div>
@@ -134,13 +136,13 @@ export function TaskDialog({
               id="task-desc"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Ixtiyoriy tavsif"
+              placeholder={t("taskDialog.description.placeholder")}
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1.5">
-              <Label htmlFor="task-priority">Muhimlik</Label>
+              <Label htmlFor="task-priority">{t("taskDialog.priority")}</Label>
               <Select
                 id="task-priority"
                 value={priority}
@@ -154,7 +156,7 @@ export function TaskDialog({
               </Select>
             </div>
             <div className="space-y-1.5">
-              <Label htmlFor="task-due">Muddat</Label>
+              <Label htmlFor="task-due">{t("taskDialog.dueDate")}</Label>
               <Input
                 id="task-due"
                 type="date"
@@ -232,7 +234,7 @@ export function TaskDialog({
                 ))}
               </ul>
               <Input
-                placeholder="Qo'shish uchun kiriting va Enter bosing"
+                placeholder={t("tasks.create.quick")}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     e.preventDefault();
@@ -252,16 +254,12 @@ export function TaskDialog({
           )}
 
           <div className="flex justify-end gap-2 pt-2">
-            <Button
-              type="button"
-              variant="ghost"
-              onClick={() => onOpenChange(false)}
-            >
-              Bekor qilish
+            <Button type="button" variant="ghost" onClick={() => onOpenChange(false)}>
+              {t("common.cancel")}
             </Button>
             <Button type="submit" disabled={pending || !title.trim()}>
               {pending && <Loader2 className="h-4 w-4 animate-spin" />}
-              {isEdit ? "Saqlash" : "Yaratish"}
+              {isEdit ? t("common.save") : t("common.create")}
             </Button>
           </div>
         </form>

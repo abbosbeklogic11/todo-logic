@@ -8,8 +8,10 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { HabitCard } from "./habit-card";
 import { HabitDialog } from "./habit-dialog";
 import { isDoneToday } from "@/lib/habit-utils";
+import { useLanguage } from "@/components/language-provider";
 
 export function HabitCenter() {
+  const { t } = useLanguage();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<HabitItem | null>(null);
 
@@ -31,32 +33,30 @@ export function HabitCenter() {
     <div className="space-y-5">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Odatlar</h1>
+          <h1 className="text-2xl font-bold">{t("habits.title")}</h1>
           <p className="text-sm text-text-muted">
-            {habits.length > 0
-              ? `Bugun ${doneToday}/${habits.length} odat bajarildi`
-              : "Kundalik odatlaringizni kuzating"}
+            {habits.length > 0 ? t("habits.subtitle.progress", { done: doneToday, total: habits.length }) : t("habits.subtitle.default")}
           </p>
         </div>
         <Button onClick={openCreate}>
           <Plus className="h-4 w-4" />
-          Yangi odat
+          {t("habits.create")}
         </Button>
       </div>
 
       {isLoading ? (
-        <p className="text-sm text-text-muted">Yuklanmoqda...</p>
+        <p className="text-sm text-text-muted">{t("common.loading")}</p>
       ) : habits.length === 0 ? (
         <EmptyState
           image="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=600&q=80&auto=format&fit=crop"
           imageAlt="Odatlar bo'sh"
           icon={<Flame />}
-          title="Hali odatlar yo'q"
-          description="Kichik, lekin muntazam odat yarating — masalan, su ichish yoki 10 daqiqa o'qish."
+          title={t("habits.empty.title")}
+          description={t("habits.empty.description")}
           action={
             <Button onClick={openCreate}>
               <Plus className="h-4 w-4" />
-              Birinchi odat
+              {t("habits.empty.action")}
             </Button>
           }
         />
