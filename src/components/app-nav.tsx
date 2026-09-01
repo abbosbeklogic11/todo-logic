@@ -44,12 +44,12 @@ export function AppNav() {
         <div className="glass-strong flex h-full flex-col rounded-[24px] p-5">
           {/* User profile */}
           <div className="flex items-center gap-3">
-            <div className="flex size-11 items-center justify-center rounded-full bg-[#7c3aed] text-sm font-bold text-white shadow">
+            <div className="flex size-11 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground shadow">
               {initials}
             </div>
             <div className="min-w-0">
-              <p className="truncate text-sm font-semibold text-[#1e1b4b]">{userName}</p>
-              <p className="truncate text-xs text-[#9ca3af]">{userEmail}</p>
+              <p className="truncate text-sm font-semibold text-text-primary">{userName}</p>
+              <p className="truncate text-xs text-text-muted">{userEmail}</p>
             </div>
           </div>
 
@@ -65,8 +65,8 @@ export function AppNav() {
                   className={cn(
                     "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all",
                     active
-                      ? "bg-[#7c3aed] text-white shadow"
-                      : "text-[#6b7280] hover:bg-[#f5f3ff] hover:text-[#7c3aed]",
+                      ? "bg-primary text-primary-foreground shadow"
+                      : "text-text-secondary hover:bg-surface-hover hover:text-text-primary",
                   )}
                 >
                   <Icon className="size-[18px]" />
@@ -77,32 +77,29 @@ export function AppNav() {
           </nav>
 
           {/* Active users */}
-          <div className="mt-4 rounded-2xl bg-[#f5f3ff] p-4">
-            <p className="text-xs font-medium text-[#6b7280]">ACTIVE USERS</p>
+          <div className="mt-4 rounded-2xl bg-surface-hover p-4">
+            <p className="text-xs font-medium text-text-secondary">ACTIVE USERS</p>
             <div className="mt-2 flex -space-x-2">
               {[1, 2, 3].map((i) => (
-                <div
-                  key={i}
-                  className="size-7 rounded-full border-2 border-[#1e3a3e] bg-white/20"
-                />
+                <div key={i} className="size-7 rounded-full border-2 border-border bg-surface" />
               ))}
-              <span className="flex size-7 items-center justify-center rounded-full border-2 border-white bg-[#7c3aed] text-xs font-bold text-white">
+              <span className="flex size-7 items-center justify-center rounded-full border-2 border-surface bg-primary text-xs font-bold text-primary-foreground">
                 +7
               </span>
             </div>
-            <div className="mt-3 flex items-center gap-2 text-[#9ca3af]">
+            <div className="mt-3 flex items-center gap-2 text-text-muted">
               <Globe className="size-4" />
               <span className="text-xs">Global • 24 online</span>
             </div>
           </div>
 
           {/* Bottom controls */}
-          <div className="mt-4 flex items-center gap-2 border-t border-[#ede9fe] pt-4">
+          <div className="mt-4 flex items-center gap-2 border-t border-border pt-4">
             <Select
               value={lang}
               onChange={(e) => setLang(e.target.value as (typeof LANGS)[number])}
               aria-label={t("settings.language")}
-              className="h-8 flex-1 border-[#ede9fe] bg-[#f5f3ff] text-xs"
+              className="h-8 flex-1 border-border bg-surface-hover text-xs text-text-primary"
             >
               {LANGS.map((l) => (
                 <option key={l} value={l}>
@@ -113,7 +110,7 @@ export function AppNav() {
             <ThemeToggle />
             <button
               onClick={() => signOut({ callbackUrl: "/login" })}
-              className="flex size-8 items-center justify-center rounded-lg bg-[#f5f3ff] text-[#6b7280] hover:bg-[#ede9fe] hover:text-[#7c3aed]"
+              className="flex size-8 items-center justify-center rounded-lg bg-surface-hover text-text-secondary hover:bg-border hover:text-text-primary"
               aria-label={t("common.signOut")}
             >
               <LogOut className="size-4" />
@@ -198,7 +195,7 @@ export function AppNav() {
               href={item.href}
               className={cn(
                 "flex shrink-0 flex-col items-center gap-1 rounded-2xl px-3 py-2 text-[10px] font-medium transition-all",
-                active ? "bg-[#7c3aed] text-white shadow" : "text-text-muted hover:text-text",
+                active ? "bg-primary text-primary-foreground shadow" : "text-text-muted hover:text-text-primary",
               )}
             >
               <Icon className="size-5" />
@@ -208,7 +205,7 @@ export function AppNav() {
         })}
         <button
           onClick={() => signOut({ callbackUrl: "/login" })}
-          className="flex size-10 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"
+          className="flex size-10 shrink-0 items-center justify-center rounded-full bg-surface-hover text-text-secondary dark:bg-zinc-800 dark:text-zinc-400"
           aria-label="Chiqish"
         >
           <LogOut className="size-5" />

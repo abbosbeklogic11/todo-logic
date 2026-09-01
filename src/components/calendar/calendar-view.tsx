@@ -95,20 +95,20 @@ export function CalendarView() {
 
   return (
     <div className="space-y-4 overflow-hidden">
-      <div className="overflow-hidden rounded-[24px] bg-white p-3 shadow-[0_24px_64px_rgba(124,58,237,0.12)] ring-8 ring-white dark:bg-[#1e1b2e] dark:ring-[#2d2a4a] sm:p-4 lg:p-6">
+      <div className="overflow-hidden rounded-[24px] bg-surface p-3 shadow-[0_24px_64px_rgba(0,0,0,0.08)] ring-8 ring-white dark:ring-[#1c1c1e] sm:p-4 lg:p-6">
         <div className="flex flex-col gap-4 lg:flex-row">
           <aside className="w-full shrink-0 space-y-3 sm:space-y-4 lg:w-[280px]">
             <div className="flex items-center gap-2">
               <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-[#9ca3af]" />
-                <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search a task..." className="h-9 rounded-full bg-[#f5f3ff] pl-9 text-sm dark:bg-[#252545]" />
+                <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-text-muted" />
+                <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search a task..." className="h-9 rounded-full bg-surface-hover pl-9 text-sm dark:bg-[#252545]" />
               </div>
-              <Button size="icon" variant="ghost" className="size-9 rounded-full bg-[#f5f3ff] dark:bg-[#252545]">
+              <Button size="icon" variant="ghost" className="size-9 rounded-full bg-surface-hover">
                 <Bell className="size-4" />
               </Button>
             </div>
 
-            <Card className="rounded-2xl border-0 bg-white shadow-[0_4px_16px_rgba(0,0,0,0.06)] dark:bg-[#252545]">
+            <Card className="rounded-2xl border-0 bg-surface shadow-sm">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-semibold">
@@ -125,7 +125,7 @@ export function CalendarView() {
                 </div>
                 <div className="mt-3 grid grid-cols-7 gap-1 text-center text-xs">
                   {["M", "T", "W", "T", "F", "S", "S"].map((d, i) => (
-                    <span key={`${d}-${i}`} className="py-1 font-medium text-[#9ca3af]">
+                    <span key={`${d}-${i}`} className="py-1 font-medium text-text-muted">
                       {d}
                     </span>
                   ))}
@@ -141,8 +141,8 @@ export function CalendarView() {
                           "flex size-7 items-center justify-center rounded-full text-xs",
                           n === null && "invisible",
                           isSelected && "bg-[#facc15] font-bold text-black",
-                          !isSelected && isToday && "bg-[#ede9fe] text-[#7c3aed]",
-                          !isSelected && !isToday && "hover:bg-[#f5f3ff] dark:hover:bg-[#2d2a4a]",
+                          !isSelected && isToday && "bg-surface-hover text-primary",
+                          !isSelected && !isToday && "hover:bg-surface-hover",
                         )}
                       >
                         {n}
@@ -187,11 +187,11 @@ export function CalendarView() {
             </Button>
 
             <div className={cn(showFilters ? "block" : "hidden lg:block")}>
-              <Card className="rounded-2xl border-0 bg-white shadow-[0_4px_16px_rgba(0,0,0,0.06)] dark:bg-[#252545]">
+              <Card className="rounded-2xl border-0 bg-surface shadow-sm">
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <h4 className="text-sm font-semibold">Filters</h4>
-                    <Filter className="size-4 text-[#9ca3af]" />
+                    <Filter className="size-4 text-text-muted" />
                   </div>
                   <div className="mt-3 space-y-2 text-sm">
                     {[
@@ -203,8 +203,8 @@ export function CalendarView() {
                       { label: "Birthdays", checked: false },
                     ].map((f) => (
                       <label key={f.label} className="flex items-center gap-2">
-                        <input type="checkbox" defaultChecked={f.checked} className="size-3.5 rounded border-[#ede9fe] text-[#7c3aed]" />
-                        <span className={cn("text-xs", f.checked ? "font-medium" : "text-[#6b7280]")}>{f.label}</span>
+                        <input type="checkbox" defaultChecked={f.checked} className="size-3.5 rounded border-border text-[#7c3aed]" />
+                        <span className={cn("text-xs", f.checked ? "font-medium" : "text-text-secondary")}>{f.label}</span>
                       </label>
                     ))}
                   </div>
@@ -240,7 +240,7 @@ export function CalendarView() {
                       onClick={() => setView(m)}
                       className={cn(
                         "rounded-full px-3 py-1 text-xs font-medium",
-                        view === m ? "bg-white shadow dark:bg-[#1e1b2e] dark:text-white" : "text-[#6b7280]",
+                        view === m ? "bg-white shadow dark:bg-[#1e1b2e] dark:text-white" : "text-text-secondary",
                       )}
                     >
                       {m}
@@ -253,22 +253,22 @@ export function CalendarView() {
               </div>
             </div>
 
-            <div className="mt-4 overflow-x-auto rounded-2xl border border-[#ede9fe] bg-white dark:border-[#2d2a4a] dark:bg-[#252545]">
+            <div className="mt-4 overflow-x-auto rounded-2xl border border-border bg-white dark:border-[#2d2a4a] dark:bg-[#252545]">
               <div className="min-w-[640px]">
                 <div className="grid grid-cols-[64px_repeat(4,1fr)] gap-px bg-[#ede9fe] dark:bg-[#2d2a4a]">
-                  <div className="bg-[#f9f8ff] p-2 text-xs font-medium text-[#9ca3af] dark:bg-[#1e1b2e]">GMT+07</div>
+                  <div className="bg-[#f9f8ff] p-2 text-xs font-medium text-text-muted dark:bg-[#1e1b2e]">GMT+07</div>
                   {days.map((d) => (
                     <div key={d.toDateString()} className="bg-white p-2 text-center dark:bg-[#252545]">
-                      <p className="text-xs text-[#9ca3af]">{d.toLocaleDateString("en-US", { weekday: "long" })}</p>
+                      <p className="text-xs text-text-muted">{d.toLocaleDateString("en-US", { weekday: "long" })}</p>
                       <p className="text-lg font-bold">{d.getDate()}</p>
                     </div>
                   ))}
                 </div>
 
                 <div className="grid grid-cols-[64px_repeat(4,1fr)] gap-px bg-[#ede9fe] dark:bg-[#2d2a4a]">
-                  <div className="flex flex-col bg-white dark:bg-[#252545]">
+                  <div className="flex flex-col bg-surface">
                     {HOURS.map((h) => (
-                      <div key={h} className="h-[88px] border-t border-[#f5f3ff] p-2 text-xs text-[#9ca3af] dark:border-[#2d2a4a] dark:text-[#7c86b0]">
+                      <div key={h} className="h-[88px] border-t border-[#f5f3ff] p-2 text-xs text-text-muted dark:border-[#2d2a4a] dark:text-[#7c86b0]">
                         {h}
                       </div>
                     ))}
@@ -276,7 +276,7 @@ export function CalendarView() {
                   {days.map((day) => {
                     const list = tasksByDay.get(day.toDateString()) ?? [];
                     return (
-                      <div key={day.toDateString()} className="relative bg-white dark:bg-[#252545]">
+                      <div key={day.toDateString()} className="relative bg-surface">
                         {HOURS.map((_, i) => (
                           <div key={i} className="h-[88px] border-t border-[#f5f3ff] dark:border-[#2d2a4a]" />
                         ))}
@@ -312,7 +312,7 @@ export function CalendarView() {
               </div>
             </div>
 
-            <p className="mt-3 text-center text-xs text-[#9ca3af] dark:text-[#7c86b0]">Rasmdagi kabi haftalik ko&apos;rinish — vazifalar muddatiga qarab joylashadi</p>
+            <p className="mt-3 text-center text-xs text-text-muted dark:text-[#7c86b0]">Rasmdagi kabi haftalik ko&apos;rinish — vazifalar muddatiga qarab joylashadi</p>
           </div>
         </div>
       </div>
