@@ -49,7 +49,7 @@ export const reorderTaskSchema = z.object({
 
 export const listTaskQuerySchema = z.object({
   cursor: z.string().optional(),
-  limit: z.number().int().min(1).max(100).default(20),
+  limit: z.number().int().min(1).max(200).default(20),
   status: taskStatusSchema.optional(),
   priority: taskPrioritySchema.optional(),
   goalId: z.string().optional(),

@@ -34,6 +34,6 @@ export const toggleMilestoneSchema = z.object({
 
 export const listGoalQuerySchema = z.object({
   cursor: z.string().optional(),
-  limit: z.number().int().min(1).max(100).default(20),
+  limit: z.number().int().min(1).max(200).default(20),
   status: goalStatusSchema.optional(),
 });
