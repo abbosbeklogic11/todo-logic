@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { Target, CalendarDays, ListChecks, Pencil, Trash2, ChevronDown } from "lucide-react";
+import { Target, CalendarDays, ListChecks, Pencil, Trash2, ChevronDown, Plus } from "lucide-react";
 import { trpc, type GoalItem } from "@/trpc/react";
 import { ProgressRing } from "@/components/ui/progress-ring";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { MilestoneList } from "./milestone-list";
 import {
   GOAL_STATUS_LABELS,
@@ -24,6 +25,13 @@ export function GoalCard({
 }) {
   const utils = trpc.useUtils();
   const [expanded, setExpanded] = useState(false);
+  const [newTaskTitle, setNewTaskTitle] = useState("");
+  const createTask = trpc.task.create.useMutation({
+    onSuccess: () => {
+      utils.goal.list.invalidate();
+      setNewTaskTitle("");
+    },
+  });
 
   const doneM = goal.milestones.filter((m) => m.isCompleted).length;
   const remove = trpc.goal.delete.useMutation({
@@ -104,9 +112,38 @@ export function GoalCard({
         {goal.description && (
           <p className="text-sm text-text-muted">{goal.description}</p>
         )}
-        {expanded && goal.milestones.length > 0 && (
-          <div className="border-t border-border pt-3">
+        {expanded && (
+          <div className="border-t border-border space-y-4 pt-3">
             <MilestoneList goalId={goal.id} milestones={goal.milestones} />
+            <div className="space-y-2">
+              <p className="text-xs font-medium uppercase tracking-wide text-text-muted">Vazifalar ({goal._count.tasks} ta)</p>
+              <div className="flex items-center gap-2">
+                <Input
+                  value={newTaskTitle}
+                  onChange={(e) => setNewTaskTitle(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      const v = newTaskTitle.trim();
+                      if (v) createTask.mutate({ title: v, goalId: goal.id });
+                    }
+                  }}
+                  placeholder="Vazifa qo'shish — Enter"
+                  className="h-9 text-sm"
+                />
+                <Button
+                  type="button"
+                  size="sm"
+                  onClick={() => {
+                    const v = newTaskTitle.trim();
+                    if (v) createTask.mutate({ title: v, goalId: goal.id });
+                  }}
+                  disabled={createTask.isPending || !newTaskTitle.trim()}
+                >
+                  <Plus className="h-4 w-4" /> Qo'shish
+                </Button>
+              </div>
+            </div>
           </div>
         )}
       </CardContent>

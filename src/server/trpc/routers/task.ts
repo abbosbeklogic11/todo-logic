@@ -115,7 +115,7 @@ export const taskRouter = router({
     .mutation(async ({ ctx, input }) => {
       const { subtasks, tagNames, ...data } = input;
       const count = await db.task.count({ where: { userId: ctx.session.user.id } });
-      return db.task.create({
+      const task = await db.task.create({
         data: {
           ...data,
           userId: ctx.session.user.id,
@@ -140,6 +140,12 @@ export const taskRouter = router({
         },
         include: { subtasks: true, tags: { include: { tag: true } } },
       });
+      const goalId = task.goalId ?? (task.milestoneId ? (await db.milestone.findUnique({ where: { id: task.milestoneId }, select: { goalId: true } }))?.goalId : null);
+      if (goalId) {
+        const { recalculateGoalProgress } = await import("@/server/goal-progress");
+        await recalculateGoalProgress(goalId);
+      }
+      return task;
     }),
 
   update: protectedProcedure
@@ -162,7 +168,11 @@ export const taskRouter = router({
           completedAt: input.completed ? new Date() : null,
         },
       });
-      if (task.goalId) await recalculateGoalProgress(task.goalId);
+      const goalId = task.goalId ?? (task.milestoneId ? (await db.milestone.findUnique({ where: { id: task.milestoneId }, select: { goalId: true } }))?.goalId : null);
+      if (goalId) {
+        const { recalculateGoalProgress } = await import("@/server/goal-progress");
+        await recalculateGoalProgress(goalId);
+      }
       return task;
     }),
 
@@ -174,7 +184,11 @@ export const taskRouter = router({
       });
       if (!task) throw new TRPCError({ code: "NOT_FOUND" });
       await db.task.delete({ where: { id: input.id } });
-      if (task.goalId) await recalculateGoalProgress(task.goalId);
+      const goalId = task.goalId ?? (task.milestoneId ? (await db.milestone.findUnique({ where: { id: task.milestoneId }, select: { goalId: true } }))?.goalId : null);
+      if (goalId) {
+        const { recalculateGoalProgress } = await import("@/server/goal-progress");
+        await recalculateGoalProgress(goalId);
+      }
       return { deleted: true };
     }),
 

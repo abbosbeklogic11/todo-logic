@@ -9,6 +9,7 @@ import {
   toggleMilestoneSchema,
   listGoalQuerySchema,
 } from "@/lib/schemas/goal";
+import { recalculateGoalProgress } from "@/server/goal-progress";
 
 export const goalRouter = router({
   list: protectedProcedure
@@ -74,18 +75,22 @@ export const goalRouter = router({
     .input(addMilestoneSchema)
     .mutation(async ({ input }) => {
       const count = await db.milestone.count({ where: { goalId: input.goalId } });
-      return db.milestone.create({
+      const m = await db.milestone.create({
         data: { goalId: input.goalId, title: input.title, order: count },
       });
+      await recalculateGoalProgress(input.goalId);
+      return m;
     }),
 
   toggleMilestone: protectedProcedure
     .input(toggleMilestoneSchema)
     .mutation(async ({ input }) => {
-      return db.milestone.update({
+      const updated = await db.milestone.update({
         where: { id: input.id },
         data: { isCompleted: input.isCompleted },
       });
+      await recalculateGoalProgress(updated.goalId);
+      return updated;
     }),
 
   delete: protectedProcedure
