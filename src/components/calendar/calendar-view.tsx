@@ -122,8 +122,8 @@ export function CalendarView() {
                   </div>
                 </div>
                 <div className="mt-3 grid grid-cols-7 gap-1 text-center text-xs">
-                  {["M", "T", "W", "T", "F", "S", "S"].map((d) => (
-                    <span key={d} className="py-1 font-medium text-[#9ca3af]">
+                  {["M", "T", "W", "T", "F", "S", "S"].map((d, i) => (
+                    <span key={`${d}-${i}`} className="py-1 font-medium text-[#9ca3af]">
                       {d}
                     </span>
                   ))}
