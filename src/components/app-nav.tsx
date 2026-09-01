@@ -11,6 +11,7 @@ import {
   LogOut,
   Plus,
   Globe,
+  CalendarDays,
 } from "lucide-react";
 import { ThemeToggle } from "@/components/site/theme-toggle";
 import { Select } from "@/components/ui/select";
@@ -24,6 +25,7 @@ const NAV = [
   { href: "/tasks", key: "nav.tasks", icon: ListTodo, label: "Vazifalar" },
   { href: "/goals", key: "nav.goals", icon: Target, label: "Maqsadlar" },
   { href: "/habits", key: "nav.habits", icon: Flame, label: "Odatlar" },
+  { href: "/calendar", key: "nav.calendar", icon: CalendarDays, label: "Kalendar" },
   { href: "/settings", key: "nav.settings", icon: Settings, label: "Sozlamalar" },
 ] as const;
 
@@ -185,8 +187,8 @@ export function AppNav() {
         </div>
       </header>
 
-      {/* Mobile Bottom Dock — Courses binafsha uslubi */}
-      <nav className="fixed bottom-4 left-4 right-4 z-40 flex items-center justify-around rounded-[28px] border border-[#ede9fe] bg-white px-2 py-2 shadow-[0_8px_32px_rgba(124,58,237,0.12)] backdrop-blur-xl dark:border-zinc-800 dark:bg-zinc-900 md:hidden">
+      {/* Mobile Bottom Dock — Courses binafsha, 6 ta item uchun scrollable */}
+      <nav className="fixed bottom-4 left-2 right-2 z-40 flex items-center gap-1 overflow-x-auto rounded-[28px] border border-[#ede9fe] bg-white px-2 py-2 shadow-[0_8px_32px_rgba(124,58,237,0.12)] backdrop-blur-xl scrollbar-none dark:border-zinc-800 dark:bg-zinc-900 md:hidden">
         {NAV.map((item) => {
           const active = pathname === item.href || pathname.startsWith(item.href + "/");
           const Icon = item.icon;
@@ -195,20 +197,18 @@ export function AppNav() {
               key={item.href}
               href={item.href}
               className={cn(
-                "flex flex-col items-center gap-1 rounded-2xl px-3 py-2 text-[10px] font-medium transition-all",
-                active
-                  ? "bg-[#7c3aed] text-white shadow"
-                  : "text-text-muted hover:text-text",
+                "flex shrink-0 flex-col items-center gap-1 rounded-2xl px-3 py-2 text-[10px] font-medium transition-all",
+                active ? "bg-[#7c3aed] text-white shadow" : "text-text-muted hover:text-text",
               )}
             >
               <Icon className="size-5" />
-              <span className="hidden xs:block">{t(item.key).split(" ")[0]}</span>
+              <span className="hidden sm:block">{t(item.key).split(" ")[0]}</span>
             </Link>
           );
         })}
         <button
           onClick={() => signOut({ callbackUrl: "/login" })}
-          className="flex size-10 items-center justify-center rounded-full bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"
+          className="flex size-10 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"
           aria-label="Chiqish"
         >
           <LogOut className="size-5" />
