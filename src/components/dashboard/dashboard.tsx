@@ -106,49 +106,49 @@ export function Dashboard({ name }: { name: string }) {
         </div>
       </div>
 
-      {/* Stats */}
+      {/* Stats — 3D weather card uslubida */}
       <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <Card>
+        <Card className="rounded-2xl border-0 shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
           <CardContent className="flex items-center gap-4 p-5">
-            <span className="flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary">
-              <ListTodo className="size-5" />
+            <span className="flex size-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#3b82f6] to-[#2563eb] text-white shadow-lg">
+              <ListTodo className="size-6" />
             </span>
             <div>
-              <p className="caption">Faol vazifalar</p>
-              <p className="stat">{activeTasks}</p>
+              <p className="text-xs font-medium text-text-muted">Faol vazifalar</p>
+              <p className="text-2xl font-bold">{activeTasks}</p>
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="rounded-2xl border-0 shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
           <CardContent className="flex items-center gap-4 p-5">
-            <span className="flex size-11 items-center justify-center rounded-lg bg-success/10 text-success">
-              <CheckCircle2 className="size-5" />
+            <span className="flex size-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#10b981] to-[#059669] text-white shadow-lg">
+              <CheckCircle2 className="size-6" />
             </span>
             <div>
-              <p className="caption">Bugun bajarilgan</p>
-              <p className="stat">{completedToday}</p>
+              <p className="text-xs font-medium text-text-muted">Bugun bajarilgan</p>
+              <p className="text-2xl font-bold">{completedToday}</p>
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="rounded-2xl border-0 shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
           <CardContent className="flex items-center gap-4 p-5">
-            <span className="flex size-11 items-center justify-center rounded-lg bg-secondary/10 text-secondary">
-              <Target className="size-5" />
+            <span className="flex size-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#f59e0b] to-[#d97706] text-white shadow-lg">
+              <Target className="size-6" />
             </span>
             <div>
-              <p className="caption">Faol maqsadlar</p>
-              <p className="stat">{goals.data?.goals.length ?? 0}</p>
+              <p className="text-xs font-medium text-text-muted">Faol maqsadlar</p>
+              <p className="text-2xl font-bold">{goals.data?.goals.length ?? 0}</p>
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="rounded-2xl border-0 shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
           <CardContent className="flex items-center gap-4 p-5">
-            <span className="flex size-11 items-center justify-center rounded-lg bg-accent/10 text-accent">
-              <Flame className="size-5" />
+            <span className="flex size-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ec4899] to-[#be185d] text-white shadow-lg">
+              <Flame className="size-6" />
             </span>
             <div>
-              <p className="caption">Odatlar</p>
-              <p className="stat">{habits.data?.length ?? 0}</p>
+              <p className="text-xs font-medium text-text-muted">Odatlar</p>
+              <p className="text-2xl font-bold">{habits.data?.length ?? 0}</p>
             </div>
           </CardContent>
         </Card>
