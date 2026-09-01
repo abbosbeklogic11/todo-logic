@@ -119,6 +119,7 @@ export function Dashboard({ name }: { name: string }) {
   ];
 
   const goalProgressData = (goals.data?.goals ?? []).slice(0, 4).map((g, i) => ({
+    id: g.id,
     name: g.title.slice(0, 12),
     value: g.progress,
     fill: COLORS[i % COLORS.length],
@@ -137,7 +138,7 @@ export function Dashboard({ name }: { name: string }) {
         <div className="absolute inset-0 bg-gradient-to-r from-[#7c3aed]/90 via-[#7c3aed]/80 to-[#a78bfa]/80" />
         <div className="relative p-6 sm:p-8">
           <h1 className="text-xl font-bold text-white sm:text-2xl lg:text-3xl">Salom, {firstName} 👋</h1>
-          <p className="mt-1 text-sm text-white/90 sm:text-base">
+          <p suppressHydrationWarning className="mt-1 text-sm text-white/90 sm:text-base">
             {new Date().toLocaleDateString("uz-UZ", { weekday: "long", day: "numeric", month: "long" })}
           </p>
           <p className="mt-3 hidden max-w-2xl text-sm text-white/80 sm:block">
@@ -295,7 +296,7 @@ export function Dashboard({ name }: { name: string }) {
             </div>
             <div className="mt-2 flex flex-wrap gap-2">
               {goalProgressData.map((g) => (
-                <span key={g.name} className="inline-flex items-center gap-1.5 text-xs">
+                <span key={g.id} className="inline-flex items-center gap-1.5 text-xs">
                   <span className="size-2 rounded-full" style={{ background: g.fill }} />
                   {g.name}: {g.value}%
                 </span>
