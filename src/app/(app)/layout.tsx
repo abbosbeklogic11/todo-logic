@@ -21,7 +21,7 @@ export default async function AppLayout({
       <div className="lg:pl-[312px]">
         <div
           id="main"
-          className="mx-auto max-w-6xl px-4 py-6 pb-28 sm:px-6 md:py-8 md:pb-8 lg:px-8"
+          className="mx-auto max-w-6xl px-4 py-6 pb-[calc(112px+env(safe-area-inset-bottom))] sm:px-6 md:py-8 md:pb-8 lg:px-8"
         >
           {children}
         </div>

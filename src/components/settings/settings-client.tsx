@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
+import { Loader2, LogOut } from "lucide-react";
+import { signOut } from "next-auth/react";
 import { trpc } from "@/trpc/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -152,6 +153,18 @@ export function SettingsClient() {
           </Button>
         </div>
       </form>
+
+      <Card className="border-error/20">
+        <CardContent className="flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="font-medium">{t("common.signOut")}</p>
+            <p className="text-sm text-text-muted">Barcha qurilmalarda hisobdan chiqish</p>
+          </div>
+          <Button variant="danger" onClick={() => signOut({ callbackUrl: "/login" })}>
+            <LogOut className="size-4" /> {t("common.signOut")}
+          </Button>
+        </CardContent>
+      </Card>
     </div>
   );
 }

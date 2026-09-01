@@ -93,7 +93,7 @@ export function AppNav() {
             </div>
           </div>
 
-          {/* Bottom controls */}
+          {/* Bottom controls — Chiqish endi Sozlamalarda */}
           <div className="mt-4 flex items-center gap-2 border-t border-border pt-4">
             <Select
               value={lang}
@@ -108,13 +108,6 @@ export function AppNav() {
               ))}
             </Select>
             <ThemeToggle />
-            <button
-              onClick={() => signOut({ callbackUrl: "/login" })}
-              className="flex size-8 items-center justify-center rounded-lg bg-surface-hover text-text-secondary hover:bg-border hover:text-text-primary"
-              aria-label={t("common.signOut")}
-            >
-              <LogOut className="size-4" />
-            </button>
           </div>
         </div>
       </aside>
@@ -160,8 +153,8 @@ export function AppNav() {
         </div>
       </header>
 
-      {/* Mobile top bar */}
-      <header className="flex h-14 items-center justify-between border-b border-border bg-surface px-4 md:hidden">
+      {/* Mobile top bar — safe-area bilan */}
+      <header className="flex h-14 items-center justify-between border-b border-border bg-surface px-4 pt-[env(safe-area-inset-top)] md:hidden" style={{ height: "calc(56px + env(safe-area-inset-top))" }}>
         <div className="flex items-center gap-2">
           <span className="flex size-8 items-center justify-center rounded-lg bg-brand-gradient text-white">
             <LayoutDashboard className="size-4" />
@@ -184,8 +177,11 @@ export function AppNav() {
         </div>
       </header>
 
-      {/* Mobile Bottom Dock — Glassmorphism */}
-      <nav className="glass fixed bottom-4 left-2 right-2 z-40 flex items-center gap-1 overflow-x-auto rounded-[28px] px-2 py-2 scrollbar-none md:hidden">
+      {/* Mobile Bottom Dock — Mukammal markazlash, barcha telefonlarda */}
+      <nav
+        className="glass fixed bottom-[calc(12px+env(safe-area-inset-bottom))] left-1/2 z-40 flex w-[calc(100%-24px)] max-w-[380px] -translate-x-1/2 items-center justify-around gap-1 rounded-[28px] px-2 py-2 shadow-[0_8px_32px_rgba(0,0,0,0.12)] md:hidden"
+        style={{ paddingBottom: "max(8px, env(safe-area-inset-bottom))" }}
+      >
         {NAV.map((item) => {
           const active = pathname === item.href || pathname.startsWith(item.href + "/");
           const Icon = item.icon;
@@ -194,26 +190,19 @@ export function AppNav() {
               key={item.href}
               href={item.href}
               className={cn(
-                "flex shrink-0 flex-col items-center gap-1 rounded-2xl px-3 py-2 text-[10px] font-medium transition-all",
+                "flex flex-1 flex-col items-center gap-1 rounded-2xl px-2 py-2 text-[10px] font-medium leading-none transition-all",
                 active ? "bg-primary text-primary-foreground shadow" : "text-text-muted hover:text-text-primary",
               )}
             >
-              <Icon className="size-5" />
-              <span className="hidden sm:block">{t(item.key).split(" ")[0]}</span>
+              <Icon className="size-[20px]" />
+              <span className="truncate text-[9px]">{t(item.key).split(" ")[0]}</span>
             </Link>
           );
         })}
-        <button
-          onClick={() => signOut({ callbackUrl: "/login" })}
-          className="flex size-10 shrink-0 items-center justify-center rounded-full bg-surface-hover text-text-secondary dark:bg-zinc-800 dark:text-zinc-400"
-          aria-label="Chiqish"
-        >
-          <LogOut className="size-5" />
-        </button>
       </nav>
 
-      {/* Spacer for bottom dock on mobile */}
-      <div className="h-20 md:hidden" aria-hidden />
+      {/* Spacer for bottom dock on mobile — safe-area bilan */}
+      <div className="h-[calc(80px+env(safe-area-inset-bottom))] md:hidden" aria-hidden />
     </>
   );
 }
