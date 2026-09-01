@@ -91,11 +91,13 @@ export function CalendarView() {
 
   const nextEvent = tasks.find((t) => t.dueAt) ?? tasks[0];
 
+  const [showFilters, setShowFilters] = useState(false);
+
   return (
-    <div className="space-y-4">
-      <div className="rounded-[24px] bg-white p-4 shadow-[0_24px_64px_rgba(124,58,237,0.12)] ring-8 ring-white dark:bg-[#1e1b2e] dark:ring-[#2d2a4a] sm:p-6">
+    <div className="space-y-4 overflow-hidden">
+      <div className="overflow-hidden rounded-[24px] bg-white p-3 shadow-[0_24px_64px_rgba(124,58,237,0.12)] ring-8 ring-white dark:bg-[#1e1b2e] dark:ring-[#2d2a4a] sm:p-4 lg:p-6">
         <div className="flex flex-col gap-4 lg:flex-row">
-          <aside className="w-full shrink-0 space-y-4 lg:w-[280px]">
+          <aside className="w-full shrink-0 space-y-3 sm:space-y-4 lg:w-[280px]">
             <div className="flex items-center gap-2">
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-[#9ca3af]" />
@@ -174,38 +176,50 @@ export function CalendarView() {
               </Card>
             )}
 
-            <Card className="rounded-2xl border-0 bg-white shadow-[0_4px_16px_rgba(0,0,0,0.06)] dark:bg-[#252545]">
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between">
-                  <h4 className="text-sm font-semibold">Filters</h4>
-                  <Filter className="size-4 text-[#9ca3af]" />
-                </div>
-                <div className="mt-3 space-y-2 text-sm">
-                  {[
-                    { label: "Meetings", checked: true },
-                    { label: "Task Due Dates", checked: false },
-                    { label: "Milestones", checked: false },
-                    { label: "Deadlines", checked: false },
-                    { label: "Personal Events", checked: false },
-                    { label: "Birthdays", checked: false },
-                  ].map((f) => (
-                    <label key={f.label} className="flex items-center gap-2">
-                      <input type="checkbox" defaultChecked={f.checked} className="size-3.5 rounded border-[#ede9fe] text-[#7c3aed]" />
-                      <span className={cn("text-xs", f.checked ? "font-medium" : "text-[#6b7280]")}>{f.label}</span>
-                    </label>
-                  ))}
-                </div>
-                <Button variant="ghost" size="sm" className="mt-3 w-full justify-between rounded-xl bg-[#f5f3ff] dark:bg-[#2d2a4a]">
-                  <span className="flex items-center gap-2 text-xs">
-                    <CalendarIcon className="size-4" /> Other Calendars
-                  </span>
-                  <ChevronRight className="size-4" />
-                </Button>
-              </CardContent>
-            </Card>
+            <Button
+              variant="outline"
+              size="sm"
+              className="flex w-full items-center justify-center gap-2 rounded-xl lg:hidden"
+              onClick={() => setShowFilters(!showFilters)}
+            >
+              <Filter className="size-4" /> Filters
+              <ChevronRight className={cn("size-4 transition-transform", showFilters && "rotate-90")} />
+            </Button>
+
+            <div className={cn(showFilters ? "block" : "hidden lg:block")}>
+              <Card className="rounded-2xl border-0 bg-white shadow-[0_4px_16px_rgba(0,0,0,0.06)] dark:bg-[#252545]">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-sm font-semibold">Filters</h4>
+                    <Filter className="size-4 text-[#9ca3af]" />
+                  </div>
+                  <div className="mt-3 space-y-2 text-sm">
+                    {[
+                      { label: "Meetings", checked: true },
+                      { label: "Task Due Dates", checked: false },
+                      { label: "Milestones", checked: false },
+                      { label: "Deadlines", checked: false },
+                      { label: "Personal Events", checked: false },
+                      { label: "Birthdays", checked: false },
+                    ].map((f) => (
+                      <label key={f.label} className="flex items-center gap-2">
+                        <input type="checkbox" defaultChecked={f.checked} className="size-3.5 rounded border-[#ede9fe] text-[#7c3aed]" />
+                        <span className={cn("text-xs", f.checked ? "font-medium" : "text-[#6b7280]")}>{f.label}</span>
+                      </label>
+                    ))}
+                  </div>
+                  <Button variant="ghost" size="sm" className="mt-3 w-full justify-between rounded-xl bg-[#f5f3ff] dark:bg-[#2d2a4a]">
+                    <span className="flex items-center gap-2 text-xs">
+                      <CalendarIcon className="size-4" /> Other Calendars
+                    </span>
+                    <ChevronRight className="size-4" />
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
           </aside>
 
-          <div className="min-w-0 flex-1">
+          <div className="min-w-0 flex-1 overflow-hidden">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-center gap-2">
                 <Button size="icon" variant="ghost" className="size-8" onClick={() => setSelected(addDays(selected, -7))}>
