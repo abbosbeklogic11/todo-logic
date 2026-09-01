@@ -126,7 +126,7 @@ export function Dashboard({ name }: { name: string }) {
   }));
 
   return (
-    <div className="rounded-[24px] bg-white p-4 shadow-[0_24px_64px_rgba(124,58,237,0.15)] ring-8 ring-white dark:bg-[#1e1b2e] dark:shadow-[0_24px_64px_rgba(0,0,0,0.5)] dark:ring-[#2d2a4a] sm:p-6 lg:p-8">
+    <div className="glass-strong rounded-[32px] p-4 sm:p-6 lg:p-8">
       <div className="space-y-6">
         <div className="relative overflow-hidden rounded-2xl">
         <img
@@ -148,7 +148,7 @@ export function Dashboard({ name }: { name: string }) {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <Card className="rounded-2xl border-0 bg-white shadow-[0_8px_32px_rgba(124,58,237,0.08)] dark:bg-[#252545] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
+        <Card className="glass rounded-2xl">
           <CardContent className="flex items-center gap-4 p-5">
             <span className="flex size-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#7c3aed] to-[#a78bfa] text-white shadow-lg">
               <ListTodo className="size-6" />
@@ -159,7 +159,7 @@ export function Dashboard({ name }: { name: string }) {
             </div>
           </CardContent>
         </Card>
-        <Card className="rounded-2xl border-0 bg-white shadow-[0_8px_32px_rgba(124,58,237,0.08)] dark:bg-[#252545] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
+        <Card className="glass rounded-2xl">
           <CardContent className="flex items-center gap-4 p-5">
             <span className="flex size-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#10b981] to-[#34d399] text-white shadow-lg">
               <CheckCircle2 className="size-6" />
@@ -170,7 +170,7 @@ export function Dashboard({ name }: { name: string }) {
             </div>
           </CardContent>
         </Card>
-        <Card className="rounded-2xl border-0 bg-white shadow-[0_8px_32px_rgba(124,58,237,0.08)] dark:bg-[#252545] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
+        <Card className="glass rounded-2xl">
           <CardContent className="flex items-center gap-4 p-5">
             <span className="flex size-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#f59e0b] to-[#fbbf24] text-white shadow-lg">
               <Target className="size-6" />
@@ -181,7 +181,7 @@ export function Dashboard({ name }: { name: string }) {
             </div>
           </CardContent>
         </Card>
-        <Card className="rounded-2xl border-0 bg-white shadow-[0_8px_32px_rgba(124,58,237,0.08)] dark:bg-[#252545] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
+        <Card className="glass rounded-2xl">
           <CardContent className="flex items-center gap-4 p-5">
             <span className="flex size-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ec4899] to-[#f472b6] text-white shadow-lg">
               <Flame className="size-6" />
@@ -195,7 +195,7 @@ export function Dashboard({ name }: { name: string }) {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-12">
-        <Card className="rounded-2xl border-0 bg-white shadow-[0_8px_32px_rgba(0,0,0,0.06)] dark:bg-[#252545] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)] lg:col-span-8">
+        <Card className="glass rounded-2xl lg:col-span-8">
           <CardContent className="p-5 sm:p-6">
             <div className="mb-4 flex items-center justify-between">
               <h3 className="font-semibold">Overview</h3>
@@ -235,7 +235,7 @@ export function Dashboard({ name }: { name: string }) {
           </CardContent>
         </Card>
 
-        <Card className="rounded-2xl border-0 bg-white shadow-[0_8px_32px_rgba(0,0,0,0.06)] dark:bg-[#252545] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)] lg:col-span-4">
+        <Card className="glass rounded-2xl lg:col-span-4">
           <CardContent className="p-5 sm:p-6">
             <div className="mb-4 flex items-center justify-between">
               <h3 className="font-semibold">KPI Dashboard</h3>
@@ -278,7 +278,7 @@ export function Dashboard({ name }: { name: string }) {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-12">
-        <Card className="rounded-2xl border-0 bg-white shadow-[0_8px_32px_rgba(0,0,0,0.06)] dark:bg-[#252545] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)] lg:col-span-5">
+        <Card className="glass rounded-2xl lg:col-span-5">
           <CardContent className="p-5 sm:p-6">
             <h3 className="font-semibold">Maqsadlar bo&apos;yicha</h3>
             <p className="text-xs text-[#9ca3af]">Har bir maqsad progressi</p>
@@ -305,7 +305,7 @@ export function Dashboard({ name }: { name: string }) {
           </CardContent>
         </Card>
 
-        <Card className="rounded-2xl border-0 bg-white shadow-[0_8px_32px_rgba(0,0,0,0.06)] dark:bg-[#252545] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)] lg:col-span-4">
+        <Card className="glass rounded-2xl lg:col-span-4">
           <CardContent className="p-5 sm:p-6">
             <h3 className="font-semibold">Vazifalar taqsimoti</h3>
             <div className="h-[180px]">
@@ -331,7 +331,7 @@ export function Dashboard({ name }: { name: string }) {
           </CardContent>
         </Card>
 
-        <Card className="rounded-2xl border-0 bg-white shadow-[0_8px_32px_rgba(0,0,0,0.06)] dark:bg-[#252545] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)] lg:col-span-3">
+        <Card className="glass rounded-2xl lg:col-span-3">
           <CardContent className="p-5 sm:p-6">
             <h3 className="font-semibold">Haftalik trend</h3>
             <div className="h-[180px]">
@@ -375,7 +375,7 @@ export function Dashboard({ name }: { name: string }) {
           ) : goals.data?.goals.length ? (
             <div className="space-y-3">
               {goals.data.goals.map((g) => (
-                <Card key={g.id} className="rounded-2xl border-0 bg-white shadow-[0_4px_16px_rgba(0,0,0,0.06)] dark:bg-[#252545] dark:shadow-[0_4px_16px_rgba(0,0,0,0.3)]">
+                <Card key={g.id} className="glass rounded-2xl">
                   <CardContent className="flex items-center gap-4 p-4">
                     <ProgressRing value={g.progress} size={56} strokeWidth={6} />
                     <div className="min-w-0 flex-1">
@@ -422,7 +422,7 @@ export function Dashboard({ name }: { name: string }) {
           ) : allTasks.length ? (
             <motion.div className="space-y-2">
               {allTasks.slice(0, 5).map((t) => (
-                <Card key={t.id} className="rounded-2xl border-0 bg-white shadow-[0_4px_12px_rgba(0,0,0,0.06)] dark:bg-[#252545] dark:shadow-[0_4px_16px_rgba(0,0,0,0.3)]">
+                <Card key={t.id} className="glass rounded-2xl">
                   <CardContent className="flex items-center gap-3 p-3">
                     <div className="size-4 rounded-md border-2 border-[#ede9fe]" />
                     <span className="flex-1 truncate text-sm">{t.title}</span>
@@ -459,7 +459,7 @@ export function Dashboard({ name }: { name: string }) {
             {upcoming.map((t) => {
               const overdue = isOverdue(t.dueAt);
               return (
-                <Card key={t.id} className="rounded-2xl border-0 bg-white shadow-[0_4px_12px_rgba(0,0,0,0.06)] dark:bg-[#252545] dark:shadow-[0_4px_16px_rgba(0,0,0,0.3)]">
+                <Card key={t.id} className="glass rounded-2xl">
                   <CardContent className="flex items-center gap-3 p-4">
                     <div className="min-w-0 flex-1">
                       <p className="truncate font-medium">{t.title}</p>

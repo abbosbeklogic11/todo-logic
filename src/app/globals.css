@@ -6,12 +6,14 @@
 /* references them via var() so utilities switch with the theme.       */
 /* ------------------------------------------------------------------ */
 :root {
-  /* Surface — Courses lavanda uslubi */
-  --bg: #f5f3ff;
-  --surface: #ffffff;
-  --surface-hover: #ede9fe;
-  --surface-glass: rgba(255, 255, 255, 0.82);
-  --border: #ede9fe;
+  /* Surface — Minimal Glassmorphism: toza, xira shisha */
+  --bg: #eef6ff;
+  --surface: rgba(255, 255, 255, 0.72);
+  --surface-hover: rgba(255, 255, 255, 0.9);
+  --surface-glass: rgba(255, 255, 255, 0.55);
+  --surface-glass-strong: rgba(255, 255, 255, 0.85);
+  --border: rgba(255, 255, 255, 0.4);
+  --border-glass: rgba(255, 255, 255, 0.35);
 
   /* Text */
   --text-primary: #1e1b4b;
@@ -54,14 +56,16 @@
 }
 
 [data-theme="dark"] {
-  --bg: #0f0f1e;
-  --surface: #1e1b2e;
-  --surface-hover: #2a2642;
-  --surface-glass: rgba(30, 27, 46, 0.85);
-  --border: #2d2a4a;
-  --text-primary: #f5f3ff;
-  --text-secondary: #a78bfa;
-  --text-muted: #7c86b0;
+  --bg: #0a0f1e;
+  --surface: rgba(255, 255, 255, 0.06);
+  --surface-hover: rgba(255, 255, 255, 0.1);
+  --surface-glass: rgba(255, 255, 255, 0.08);
+  --surface-glass-strong: rgba(255, 255, 255, 0.12);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-glass: rgba(255, 255, 255, 0.12);
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #64748b;
   --primary: #a78bfa;
   --primary-hover: #c4b5fd;
   --accent: #e879f9;
@@ -69,7 +73,7 @@
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
   --shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.6);
-  --shadow-glow: 0 0 40px rgba(167, 139, 250, 0.25);
+  --shadow-glow: 0 0 40px rgba(167, 139, 250, 0.2);
 }
 
 /* ------------------------------------------------------------------ */
@@ -140,6 +144,40 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    position: relative;
+    overflow-x: hidden;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
+  }
+
+  .glass,
+  .glass-strong,
+  .surface-glass {
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(900px 600px at -10% -20%, rgba(255, 255, 255, 0.9) 0%, transparent 60%),
+      radial-gradient(700px 500px at 110% 100%, rgba(199, 210, 254, 0.35) 0%, transparent 60%),
+      radial-gradient(500px 400px at 50% 0%, rgba(224, 231, 255, 0.4) 0%, transparent 60%),
+      var(--bg);
+    pointer-events: none;
+  }
+
+  [data-theme="dark"] body::before {
+    background:
+      radial-gradient(800px 600px at -10% -20%, rgba(30, 41, 99, 0.25) 0%, transparent 60%),
+      radial-gradient(600px 400px at 110% 100%, rgba(30, 27, 75, 0.3) 0%, transparent 60%),
+      var(--bg);
   }
 
   /* Focus ring — functional, visible (a11y) */
@@ -171,8 +209,41 @@
 
   .surface-glass {
     background-color: var(--surface-glass);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-glass);
+  }
+
+  .glass {
+    background: var(--surface-glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-glass);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+
+  [data-theme="dark"] .glass {
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  .glass-strong {
+    background: var(--surface-glass-strong);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--border-glass);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+
+  [data-theme="dark"] .glass-strong {
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
   }
 
   /* Typography scale */

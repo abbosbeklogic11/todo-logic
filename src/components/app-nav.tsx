@@ -39,9 +39,9 @@ export function AppNav() {
 
   return (
     <>
-      {/* Desktop Sidebar — Courses binafsha uslubi: oq, lavanda fon, binafsha active */}
+      {/* Desktop Sidebar — Minimal Glassmorphism */}
       <aside className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:flex lg:w-[280px] lg:flex-col lg:p-4">
-        <div className="flex h-full flex-col rounded-[24px] bg-white p-5 shadow-xl ring-1 ring-[#ede9fe]">
+        <div className="glass-strong flex h-full flex-col rounded-[24px] p-5">
           {/* User profile */}
           <div className="flex items-center gap-3">
             <div className="flex size-11 items-center justify-center rounded-full bg-[#7c3aed] text-sm font-bold text-white shadow">
@@ -187,8 +187,8 @@ export function AppNav() {
         </div>
       </header>
 
-      {/* Mobile Bottom Dock — Courses binafsha, 6 ta item uchun scrollable */}
-      <nav className="fixed bottom-4 left-2 right-2 z-40 flex items-center gap-1 overflow-x-auto rounded-[28px] border border-[#ede9fe] bg-white px-2 py-2 shadow-[0_8px_32px_rgba(124,58,237,0.12)] backdrop-blur-xl scrollbar-none dark:border-zinc-800 dark:bg-zinc-900 md:hidden">
+      {/* Mobile Bottom Dock — Glassmorphism */}
+      <nav className="glass fixed bottom-4 left-2 right-2 z-40 flex items-center gap-1 overflow-x-auto rounded-[28px] px-2 py-2 scrollbar-none md:hidden">
         {NAV.map((item) => {
           const active = pathname === item.href || pathname.startsWith(item.href + "/");
           const Icon = item.icon;
