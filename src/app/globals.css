@@ -6,26 +6,26 @@
 /* references them via var() so utilities switch with the theme.       */
 /* ------------------------------------------------------------------ */
 :root {
-  /* Surface — Minimal Glassmorphism: toza, xira shisha */
-  --bg: #eef6ff;
-  --surface: rgba(255, 255, 255, 0.72);
-  --surface-hover: rgba(255, 255, 255, 0.9);
-  --surface-glass: rgba(255, 255, 255, 0.55);
-  --surface-glass-strong: rgba(255, 255, 255, 0.85);
-  --border: rgba(255, 255, 255, 0.4);
-  --border-glass: rgba(255, 255, 255, 0.35);
+  /* Surface — Minimal LIGHT: toza oq, rasmdagi kabi */
+  --bg: #f5f5f7;
+  --surface: #ffffff;
+  --surface-hover: #f3f4f6;
+  --surface-glass: #ffffff;
+  --surface-glass-strong: #ffffff;
+  --border: #e5e7eb;
+  --border-glass: #e5e7eb;
 
   /* Text */
-  --text-primary: #1e1b4b;
+  --text-primary: #111827;
   --text-secondary: #6b7280;
   --text-muted: #9ca3af;
 
-  /* Brand — binafsha Courses */
-  --primary: #7c3aed;
-  --primary-hover: #6d28d9;
-  --primary-gradient: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 50%, #a78bfa 100%);
-  --accent: #a78bfa;
-  --secondary: #8b5cf6;
+  /* Brand — minimal qora, rasmdagi kabi */
+  --primary: #111827;
+  --primary-hover: #000000;
+  --primary-gradient: linear-gradient(135deg, #111827 0%, #374151 100%);
+  --accent: #6b7280;
+  --secondary: #9ca3af;
 
   /* Semantic */
   --success: #22c55e;
@@ -39,13 +39,13 @@
   --priority-medium: #eab308;
   --priority-low: #22c55e;
 
-  /* Shadow */
+  /* Shadow — minimal, yumshoq, rasmdagi kabi */
   --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.07);
-  --shadow-lg: 0 8px 30px rgba(124, 58, 237, 0.08);
-  --shadow-xl: 0 20px 60px rgba(124, 58, 237, 0.12);
-  --shadow-glow: 0 0 40px rgba(124, 58, 237, 0.15);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.06);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.08);
+  --shadow-glow: 0 0 24px rgba(0, 0, 0, 0.04);
 
   /* Radius (spec §3.4) */
   --radius-sm: 4px;
@@ -56,24 +56,24 @@
 }
 
 [data-theme="dark"] {
-  --bg: #0a0f1e;
-  --surface: rgba(255, 255, 255, 0.06);
-  --surface-hover: rgba(255, 255, 255, 0.1);
-  --surface-glass: rgba(255, 255, 255, 0.08);
-  --surface-glass-strong: rgba(255, 255, 255, 0.12);
-  --border: rgba(255, 255, 255, 0.08);
-  --border-glass: rgba(255, 255, 255, 0.12);
-  --text-primary: #f8fafc;
-  --text-secondary: #cbd5e1;
-  --text-muted: #64748b;
-  --primary: #a78bfa;
-  --primary-hover: #c4b5fd;
-  --accent: #e879f9;
-  --secondary: #818cf8;
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
-  --shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.6);
-  --shadow-glow: 0 0 40px rgba(167, 139, 250, 0.2);
+  --bg: #000000;
+  --surface: #1c1c1e;
+  --surface-hover: #2c2c2e;
+  --surface-glass: #1c1c1e;
+  --surface-glass-strong: #1c1c1e;
+  --border: #2a2a2a;
+  --border-glass: #2a2a2a;
+  --text-primary: #f9fafb;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --primary: #f9fafb;
+  --primary-hover: #ffffff;
+  --accent: #a1a1aa;
+  --secondary: #71717a;
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.7);
+  --shadow-glow: 0 0 24px rgba(255, 255, 255, 0.05);
 }
 
 /* ------------------------------------------------------------------ */
@@ -144,40 +144,9 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    position: relative;
-    overflow-x: hidden;
     transition:
       background-color 0.3s ease,
       color 0.3s ease;
-  }
-
-  .glass,
-  .glass-strong,
-  .surface-glass {
-    transition:
-      background-color 0.3s ease,
-      border-color 0.3s ease,
-      box-shadow 0.3s ease;
-  }
-
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    background:
-      radial-gradient(900px 600px at -10% -20%, rgba(255, 255, 255, 0.9) 0%, transparent 60%),
-      radial-gradient(700px 500px at 110% 100%, rgba(199, 210, 254, 0.35) 0%, transparent 60%),
-      radial-gradient(500px 400px at 50% 0%, rgba(224, 231, 255, 0.4) 0%, transparent 60%),
-      var(--bg);
-    pointer-events: none;
-  }
-
-  [data-theme="dark"] body::before {
-    background:
-      radial-gradient(800px 600px at -10% -20%, rgba(30, 41, 99, 0.25) 0%, transparent 60%),
-      radial-gradient(600px 400px at 110% 100%, rgba(30, 27, 75, 0.3) 0%, transparent 60%),
-      var(--bg);
   }
 
   /* Focus ring — functional, visible (a11y) */
@@ -208,42 +177,36 @@
   }
 
   .surface-glass {
-    background-color: var(--surface-glass);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--border-glass);
+    background-color: var(--surface);
+    border: 1px solid var(--border);
   }
 
   .glass {
-    background: var(--surface-glass);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--border-glass);
+    background: var(--surface);
+    border: 1px solid var(--border);
     box-shadow:
-      0 8px 32px rgba(0, 0, 0, 0.06),
-      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+      0 1px 3px rgba(0, 0, 0, 0.05),
+      0 4px 12px rgba(0, 0, 0, 0.04);
   }
 
   [data-theme="dark"] .glass {
     box-shadow:
-      0 8px 32px rgba(0, 0, 0, 0.4),
-      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      0 1px 3px rgba(0, 0, 0, 0.3),
+      0 4px 12px rgba(0, 0, 0, 0.25);
   }
 
   .glass-strong {
-    background: var(--surface-glass-strong);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid var(--border-glass);
+    background: var(--surface);
+    border: 1px solid var(--border);
     box-shadow:
-      0 8px 32px rgba(0, 0, 0, 0.08),
-      inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      0 4px 16px rgba(0, 0, 0, 0.06),
+      0 8px 32px rgba(0, 0, 0, 0.04);
   }
 
   [data-theme="dark"] .glass-strong {
     box-shadow:
-      0 8px 32px rgba(0, 0, 0, 0.5),
-      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      0 4px 16px rgba(0, 0, 0, 0.4),
+      0 8px 32px rgba(0, 0, 0, 0.3);
   }
 
   /* Typography scale */
