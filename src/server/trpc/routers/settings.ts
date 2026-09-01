@@ -19,15 +19,16 @@ export const settingsRouter = router({
   update: protectedProcedure
     .input(updateSettingsSchema)
     .mutation(async ({ ctx, input }) => {
+      const { theme, ...settingsData } = input;
       const settings = await db.userSettings.upsert({
         where: { userId: ctx.session.user.id },
-        create: { userId: ctx.session.user.id, ...input },
-        update: input,
+        create: { userId: ctx.session.user.id, ...settingsData },
+        update: settingsData,
       });
-      if (input.theme) {
+      if (theme) {
         await db.user.update({
           where: { id: ctx.session.user.id },
-          data: { theme: input.theme },
+          data: { theme },
         });
       }
       return settings;
