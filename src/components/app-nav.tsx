@@ -37,17 +37,17 @@ export function AppNav() {
 
   return (
     <>
-      {/* Desktop Sidebar — 1-rasm uslubida: qorong'i teal, yumaloq, oltin aksent */}
+      {/* Desktop Sidebar — Courses binafsha uslubi: oq, lavanda fon, binafsha active */}
       <aside className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:flex lg:w-[280px] lg:flex-col lg:p-4">
-        <div className="flex h-full flex-col rounded-[24px] bg-[#1e3a3e] p-5 text-white shadow-xl">
+        <div className="flex h-full flex-col rounded-[24px] bg-white p-5 shadow-xl ring-1 ring-[#ede9fe]">
           {/* User profile */}
           <div className="flex items-center gap-3">
-            <div className="flex size-11 items-center justify-center rounded-full bg-white/15 text-sm font-bold ring-2 ring-white/20">
+            <div className="flex size-11 items-center justify-center rounded-full bg-[#7c3aed] text-sm font-bold text-white shadow">
               {initials}
             </div>
             <div className="min-w-0">
-              <p className="truncate text-sm font-semibold">{userName}</p>
-              <p className="truncate text-xs text-white/60">{userEmail}</p>
+              <p className="truncate text-sm font-semibold text-[#1e1b4b]">{userName}</p>
+              <p className="truncate text-xs text-[#9ca3af]">{userEmail}</p>
             </div>
           </div>
 
@@ -63,8 +63,8 @@ export function AppNav() {
                   className={cn(
                     "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all",
                     active
-                      ? "bg-white text-[#1e3a3e] shadow"
-                      : "text-white/70 hover:bg-white/10 hover:text-white",
+                      ? "bg-[#7c3aed] text-white shadow"
+                      : "text-[#6b7280] hover:bg-[#f5f3ff] hover:text-[#7c3aed]",
                   )}
                 >
                   <Icon className="size-[18px]" />
@@ -74,9 +74,9 @@ export function AppNav() {
             })}
           </nav>
 
-          {/* Active users / Map illustration — 1-rasm pastki qismi */}
-          <div className="mt-4 rounded-2xl bg-white/5 p-4">
-            <p className="text-xs font-medium text-white/60">ACTIVE USERS</p>
+          {/* Active users */}
+          <div className="mt-4 rounded-2xl bg-[#f5f3ff] p-4">
+            <p className="text-xs font-medium text-[#6b7280]">ACTIVE USERS</p>
             <div className="mt-2 flex -space-x-2">
               {[1, 2, 3].map((i) => (
                 <div
@@ -84,26 +84,26 @@ export function AppNav() {
                   className="size-7 rounded-full border-2 border-[#1e3a3e] bg-white/20"
                 />
               ))}
-              <span className="flex size-7 items-center justify-center rounded-full border-2 border-[#1e3a3e] bg-[#c9a86a] text-xs font-bold text-[#1e3a3e]">
+              <span className="flex size-7 items-center justify-center rounded-full border-2 border-white bg-[#7c3aed] text-xs font-bold text-white">
                 +7
               </span>
             </div>
-            <div className="mt-3 flex items-center gap-2 text-white/40">
+            <div className="mt-3 flex items-center gap-2 text-[#9ca3af]">
               <Globe className="size-4" />
               <span className="text-xs">Global • 24 online</span>
             </div>
           </div>
 
           {/* Bottom controls */}
-          <div className="mt-4 flex items-center gap-2 border-t border-white/10 pt-4">
+          <div className="mt-4 flex items-center gap-2 border-t border-[#ede9fe] pt-4">
             <Select
               value={lang}
               onChange={(e) => setLang(e.target.value as (typeof LANGS)[number])}
               aria-label={t("settings.language")}
-              className="h-8 flex-1 border-white/20 bg-white/10 text-xs text-white"
+              className="h-8 flex-1 border-[#ede9fe] bg-[#f5f3ff] text-xs"
             >
               {LANGS.map((l) => (
-                <option key={l} value={l} className="text-black">
+                <option key={l} value={l}>
                   {t(`lang.${l}`)}
                 </option>
               ))}
@@ -111,7 +111,7 @@ export function AppNav() {
             <ThemeToggle />
             <button
               onClick={() => signOut({ callbackUrl: "/login" })}
-              className="flex size-8 items-center justify-center rounded-lg bg-white/10 text-white/70 hover:bg-white/20 hover:text-white"
+              className="flex size-8 items-center justify-center rounded-lg bg-[#f5f3ff] text-[#6b7280] hover:bg-[#ede9fe] hover:text-[#7c3aed]"
               aria-label={t("common.signOut")}
             >
               <LogOut className="size-4" />
@@ -185,8 +185,8 @@ export function AppNav() {
         </div>
       </header>
 
-      {/* Mobile Bottom Dock — 9-rasm floating/dock uslubida */}
-      <nav className="fixed bottom-4 left-4 right-4 z-40 flex items-center justify-around rounded-[28px] border border-white/20 bg-white px-2 py-2 shadow-[0_8px_32px_rgba(0,0,0,0.12)] backdrop-blur-xl dark:border-zinc-800 dark:bg-zinc-900 md:hidden">
+      {/* Mobile Bottom Dock — Courses binafsha uslubi */}
+      <nav className="fixed bottom-4 left-4 right-4 z-40 flex items-center justify-around rounded-[28px] border border-[#ede9fe] bg-white px-2 py-2 shadow-[0_8px_32px_rgba(124,58,237,0.12)] backdrop-blur-xl dark:border-zinc-800 dark:bg-zinc-900 md:hidden">
         {NAV.map((item) => {
           const active = pathname === item.href || pathname.startsWith(item.href + "/");
           const Icon = item.icon;
@@ -197,7 +197,7 @@ export function AppNav() {
               className={cn(
                 "flex flex-col items-center gap-1 rounded-2xl px-3 py-2 text-[10px] font-medium transition-all",
                 active
-                  ? "bg-[#1e3a3e] text-white shadow"
+                  ? "bg-[#7c3aed] text-white shadow"
                   : "text-text-muted hover:text-text",
               )}
             >

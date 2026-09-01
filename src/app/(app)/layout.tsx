@@ -10,7 +10,7 @@ export default async function AppLayout({
   const session = await auth();
   if (!session?.user) redirect("/login");
   return (
-    <div className="min-h-screen bg-[#f0f4f4] dark:bg-zinc-950">
+    <div className="min-h-screen bg-[#f5f3ff] dark:bg-zinc-950">
       <a
         href="#main"
         className="sr-only rounded-md bg-primary px-3 py-2 text-primary-foreground focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50"
