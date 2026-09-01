@@ -23,6 +23,7 @@
   /* Brand — minimal qora, rasmdagi kabi */
   --primary: #111827;
   --primary-hover: #000000;
+  --primary-foreground: #ffffff;
   --primary-gradient: linear-gradient(135deg, #111827 0%, #374151 100%);
   --accent: #6b7280;
   --secondary: #9ca3af;
@@ -68,6 +69,7 @@
   --text-muted: #71717a;
   --primary: #f9fafb;
   --primary-hover: #ffffff;
+  --primary-foreground: #111827;
   --accent: #a1a1aa;
   --secondary: #71717a;
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
@@ -92,6 +94,7 @@
 
   --color-primary: var(--primary);
   --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
   --color-accent: var(--accent);
   --color-secondary: var(--secondary);
 
