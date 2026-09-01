@@ -58,15 +58,15 @@ export function TaskCenter() {
   };
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-4 sm:space-y-5">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">Vazifalar</h1>
+        <div className="min-w-0">
+          <h1 className="text-xl font-bold sm:text-2xl">Vazifalar</h1>
           <p className="text-sm text-text-muted">
             {filtered.length} ta ko'rsatilmoqda
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <div className="flex rounded-lg border border-border bg-surface p-1">
             {VIEWS.map((v) => {
               const Icon = v.icon;
@@ -77,21 +77,22 @@ export function TaskCenter() {
                   onClick={() => setView(v.id)}
                   aria-pressed={view === v.id}
                   className={cn(
-                    "inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+                    "inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm font-medium transition-colors sm:px-3",
                     view === v.id
                       ? "bg-primary text-primary-foreground"
                       : "text-text-muted hover:text-text",
                   )}
                 >
                   <Icon className="h-4 w-4" />
-                  {v.label}
+                  <span className="hidden xs:inline sm:inline">{v.label}</span>
                 </button>
               );
             })}
           </div>
-          <Button onClick={openCreate}>
+          <Button onClick={openCreate} className="shrink-0">
             <Plus className="h-4 w-4" />
-            Yangi vazifa
+            <span className="hidden sm:inline">Yangi vazifa</span>
+            <span className="sm:hidden">Yangi</span>
           </Button>
         </div>
       </div>

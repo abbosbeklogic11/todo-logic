@@ -82,17 +82,29 @@ export function Dashboard({ name }: { name: string }) {
     .slice(0, 6);
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
-      <header className="mb-8">
-        <h1 className="h2">Salom, {firstName} 👋</h1>
-        <p className="body text-text-secondary">
-          {new Date().toLocaleDateString("uz-UZ", {
-            weekday: "long",
-            day: "numeric",
-            month: "long",
-          })}
-        </p>
-      </header>
+    <div className="space-y-6">
+      <div className="relative overflow-hidden rounded-2xl">
+        <img
+          src="https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=1200&q=80&auto=format&fit=crop"
+          alt="Dashboard banner"
+          className="absolute inset-0 h-full w-full object-cover"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/80 to-secondary/80" />
+        <div className="relative p-6 sm:p-8">
+          <h1 className="text-xl font-bold text-white sm:text-2xl lg:text-3xl">Salom, {firstName} 👋</h1>
+          <p className="mt-1 text-sm text-white/90 sm:text-base">
+            {new Date().toLocaleDateString("uz-UZ", {
+              weekday: "long",
+              day: "numeric",
+              month: "long",
+            })}
+          </p>
+          <p className="mt-3 hidden max-w-2xl text-sm text-white/80 sm:block">
+            Bugungi rejalaringizni ko'rib chiqing, vazifalarni bajaring va maqsadlaringiz sari yaqinlashing.
+          </p>
+        </div>
+      </div>
 
       {/* Stats */}
       <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -184,8 +196,10 @@ export function Dashboard({ name }: { name: string }) {
               ))}
             </div>
           ) : (
-            <Card>
+            <Card className="overflow-hidden">
               <EmptyState
+                image="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80&auto=format&fit=crop"
+                imageAlt="Maqsadlar"
                 icon={<Target />}
                 title="Katta narsadan boshlang"
                 description="Birinchi maqsadingizni yarating va uni bosqichlarga ajrating."
@@ -238,8 +252,10 @@ export function Dashboard({ name }: { name: string }) {
               ))}
             </motion.div>
           ) : (
-            <Card>
+            <Card className="overflow-hidden">
               <EmptyState
+                image="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=600&q=80&auto=format&fit=crop"
+                imageAlt="Vazifalar"
                 icon={<ListTodo />}
                 title="Hali vazifalar yo'q"
                 description="Birinchi vazifangizni qo'shing — yuqoridagi maydon orqali tezda qo'shishingiz mumkin."

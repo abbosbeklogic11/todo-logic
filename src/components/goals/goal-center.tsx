@@ -67,6 +67,8 @@ export function GoalCenter() {
         <p className="text-sm text-text-muted">Yuklanmoqda...</p>
       ) : filtered.length === 0 ? (
         <EmptyState
+          image="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80&auto=format&fit=crop"
+          imageAlt="Maqsadlar bo'sh"
           icon={<Target />}
           title="Hali maqsad yo'q"
           description="Katta narsadan boshlang — maqsad yarating va uni bosqichlarga ajrating."

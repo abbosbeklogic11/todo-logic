@@ -34,6 +34,9 @@ export function TaskList({
   if (tasks.length === 0) {
     return (
       <EmptyState
+        image="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=600&q=80&auto=format&fit=crop"
+        imageAlt="Bo'sh vazifalar ro'yxati"
+        icon={<Plus className="size-5" />}
         title="Vazifalar yo'q"
         description="Yuqoridagi qutiga sarlavha yozing yoki 'Yangi vazifa' tugmasini bosing."
       />

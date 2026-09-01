@@ -48,6 +48,8 @@ export function HabitCenter() {
         <p className="text-sm text-text-muted">Yuklanmoqda...</p>
       ) : habits.length === 0 ? (
         <EmptyState
+          image="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=600&q=80&auto=format&fit=crop"
+          imageAlt="Odatlar bo'sh"
           icon={<Flame />}
           title="Hali odatlar yo'q"
           description="Kichik, lekin muntazam odat yarating — masalan, su ichish yoki 10 daqiqa o'qish."

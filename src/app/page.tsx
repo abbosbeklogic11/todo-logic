@@ -25,36 +25,48 @@ const features = [
     title: "Maqsadlar va bosqichlar",
     description:
       "Katta maqsadni bosqichlarga (milestone) bo'ling va har biri uchun vazifalar yarating.",
+    image:
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80&auto=format&fit=crop",
   },
   {
     icon: ListTodo,
     title: "Vazifalar boshqaruvi",
     description:
       "List, Kanban (drag-drop) va taqvim ko'rinishlari. Filtrlar va ustuvorlik darajasi.",
+    image:
+      "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=600&q=80&auto=format&fit=crop",
   },
   {
     icon: Flame,
     title: "Odatlar (habits)",
     description:
       "Kundalik odatlarni kuzating, streak hisoblang va barqarorlikka erishing.",
+    image:
+      "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=600&q=80&auto=format&fit=crop",
   },
   {
     icon: Timer,
     title: "Fokus vaqti",
     description:
       "Pomodoriga o'xshash fokus rejimi bilan chalg'ishlarni kamaytiring (v2).",
+    image:
+      "https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=600&q=80&auto=format&fit=crop",
   },
   {
     icon: TrendingUp,
     title: "Real vaqtda statistika",
     description:
       "Bajarilgan vazifalar, progress va streak'lar asosida shakllangan analitika.",
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80&auto=format&fit=crop",
   },
   {
     icon: Sparkles,
     title: "AI yordamchi",
     description:
       "Kunlik rejani avtomatik tuzuvchi AI yordamchi (v2 bosqichida).",
+    image:
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&q=80&auto=format&fit=crop",
   },
 ];
 
@@ -124,56 +136,72 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* App preview mock */}
+            {/* App preview — rasmli, responsive */}
             <motion.div
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
               className="relative"
             >
-              <Card className="shadow-xl">
-                <CardContent className="flex flex-col gap-5 p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="caption">Faol maqsadlar</p>
-                      <p className="stat">3</p>
-                    </div>
-                    <ProgressRing value={68} size={88} />
-                  </div>
-                  <div className="flex flex-col gap-2.5">
-                    {[
-                      { t: "Landing sahifani tayyorlash", done: true },
-                      { t: "Auth oqimini loyihalash", done: true },
-                      { t: "Dashboard statistikasi", done: false },
-                      { t: "Odat kuzatuvi modulini qo'shish", done: false },
-                    ].map((item) => (
-                      <div
-                        key={item.t}
-                        className="flex items-center gap-3 rounded-md border border-border bg-surface px-3 py-2.5"
-                      >
-                        {item.done ? (
-                          <CheckCircle2 className="size-5 shrink-0 text-success" />
-                        ) : (
-                          <div className="size-5 shrink-0 rounded-md border-2 border-border" />
-                        )}
-                        <span
-                          className={
-                            item.done
-                              ? "body-sm text-text-muted line-through"
-                              : "body-sm text-text-primary"
-                          }
-                        >
-                          {item.t}
-                        </span>
+              <div className="relative overflow-hidden rounded-2xl shadow-xl ring-1 ring-border">
+                <img
+                  src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=900&q=80&auto=format&fit=crop"
+                  alt="Ish stolida reja va noutbuk"
+                  className="h-[320px] w-full object-cover sm:h-[380px] lg:h-[440px]"
+                  loading="eager"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
+                <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4">
+                  <Card className="border-white/20 bg-white/95 shadow-lg backdrop-blur dark:bg-zinc-900/90">
+                    <CardContent className="flex flex-col gap-3 p-4 sm:p-5">
+                      <div className="flex items-center justify-between gap-4">
+                        <div>
+                          <p className="caption">Faol maqsadlar</p>
+                          <p className="stat">3</p>
+                        </div>
+                        <ProgressRing value={68} size={72} />
                       </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-              <div className="absolute -bottom-6 -left-6 hidden size-28 rounded-2xl border border-border bg-surface p-4 shadow-lg sm:flex sm:flex-col sm:justify-center sm:gap-1">
+                      <div className="hidden flex-col gap-2 sm:flex">
+                        {[
+                          { t: "Landing sahifani tayyorlash", done: true },
+                          { t: "Auth oqimini loyihalash", done: true },
+                          { t: "Dashboard statistikasi", done: false },
+                        ].map((item) => (
+                          <div
+                            key={item.t}
+                            className="flex items-center gap-2.5 rounded-md border border-border bg-surface px-3 py-2"
+                          >
+                            {item.done ? (
+                              <CheckCircle2 className="size-4 shrink-0 text-success" />
+                            ) : (
+                              <div className="size-4 shrink-0 rounded-md border-2 border-border" />
+                            )}
+                            <span
+                              className={
+                                item.done
+                                  ? "body-sm text-text-muted line-through"
+                                  : "body-sm text-text-primary"
+                              }
+                            >
+                              {item.t}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+              <div className="absolute -bottom-4 -left-4 hidden rounded-2xl border border-border bg-surface p-3 shadow-lg sm:flex sm:flex-col sm:gap-1 lg:-left-6 lg:p-4">
                 <CalendarDays className="size-5 text-secondary" />
                 <p className="caption">Bugun</p>
                 <p className="text-sm font-semibold">5 vazifa</p>
+              </div>
+              <div className="absolute -top-3 -right-3 hidden items-center gap-2 rounded-full border border-border bg-surface px-3 py-2 shadow-lg sm:flex lg:-right-4">
+                <span className="flex size-7 items-center justify-center rounded-full bg-success/15 text-success">
+                  <CheckCircle2 className="size-4" />
+                </span>
+                <span className="pr-1 text-xs font-medium">68% bajarildi</span>
               </div>
             </motion.div>
           </div>
@@ -197,11 +225,20 @@ export default function LandingPage() {
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.4, delay: i * 0.05 }}
               >
-                <Card className="h-full hover:-translate-y-1 hover:shadow-md">
-                  <CardContent className="flex h-full flex-col gap-3 p-6">
-                    <span className="flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <Card className="group h-full overflow-hidden hover:-translate-y-1 hover:shadow-md">
+                  <div className="relative h-36 overflow-hidden sm:h-40">
+                    <img
+                      src={f.image}
+                      alt={f.title}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                    <span className="absolute bottom-3 left-3 flex size-9 items-center justify-center rounded-lg bg-white/95 text-primary shadow backdrop-blur dark:bg-zinc-900/90">
                       <f.icon className="size-5" />
                     </span>
+                  </div>
+                  <CardContent className="flex h-full flex-col gap-2 p-5 sm:p-6">
                     <h3 className="h4">{f.title}</h3>
                     <p className="body-sm text-text-secondary">
                       {f.description}
@@ -252,12 +289,19 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* CTA */}
+        {/* CTA — rasmli */}
         <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-          <Card className="overflow-hidden border-0 bg-brand-gradient text-white">
-            <CardContent className="flex flex-col items-center gap-5 p-10 text-center sm:p-14">
+          <Card className="relative overflow-hidden border-0">
+            <img
+              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80&auto=format&fit=crop"
+              alt="Jamoa bilan ishlash"
+              className="absolute inset-0 h-full w-full object-cover"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-brand-gradient opacity-[0.92]" />
+            <CardContent className="relative flex flex-col items-center gap-5 p-8 text-center text-white sm:p-12 lg:p-14">
               <h2 className="h2 text-white">Bugun birinchi qadam qo'ying</h2>
-              <p className="body-lg max-w-xl text-white/80">
+              <p className="body-lg max-w-xl text-white/90">
                 Ro'yxatdan o'tish bir daqiqa. Maqsadingizga birinchi yaqinlashgan
                 vazifangizni hoziroq yarating.
               </p>
