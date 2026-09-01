@@ -308,7 +308,7 @@ export default function LandingPage() {
               <Button
                 size="lg"
                 variant="secondary"
-                className="bg-white text-primary hover:bg-white/90"
+                className="bg-white text-[#111827] hover:bg-white/90 dark:bg-white dark:text-[#111827]"
                 asChild
               >
                 <Link href="/register">
