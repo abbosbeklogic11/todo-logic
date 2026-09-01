@@ -70,6 +70,7 @@
   --primary: #f9fafb;
   --primary-hover: #ffffff;
   --primary-foreground: #111827;
+  --primary-gradient: linear-gradient(135deg, #f9fafb 0%, #e5e7eb 100%);
   --accent: #a1a1aa;
   --secondary: #71717a;
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
